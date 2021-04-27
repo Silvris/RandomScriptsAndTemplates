@@ -1,0 +1,41 @@
+//------------------------------------------------
+//--- 010 Editor v11.0.1 Binary Template
+//
+//      File: Lethal Crisis PACK file
+//   Authors: Silvris
+//   Version: 1.0
+//   Purpose: Looking at the structure of Lethal Crisis's package file
+//  Category: Game
+// File Mask: .p
+//  ID Bytes: PACK
+//   History: 
+//------------------------------------------------
+typedef struct{
+    byte filePath[64];
+    uint unkn1;//hash? likely a crc32?
+    uint unkn2;//hash?
+    uint offset;
+    uint size;
+}File;
+
+typedef struct(int length){
+    byte data[length];
+}ActualFile;
+
+string readFilePath(File &f){
+    return f.filePath;
+}
+
+local int i;
+char magic[4];
+uint fileCount;
+for(i=0;i<fileCount;i++){
+    File file<read=readFilePath>;
+};
+for(i=0;i<fileCount;i++){
+    FSeek(file[i].offset);
+    ActualFile actualFile(file[i].size);
+};
+//actual data appears to be 0x10 aligned, and there appears to be LZSS compression on certain files
+//specifically, files in the .p are LZSS compressed, while files in the .mus are not
+//one file in the .p is not compressed (the opening movie), seems the best approach would be to extract as is, then undo LZSS compression on files that are compressed
