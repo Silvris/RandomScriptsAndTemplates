@@ -1,0 +1,32 @@
+# BC package format for Sakura Taisen: Atsuki no Chishio ni for the PS2
+# Written by Silvris
+endian little
+get Filesize asize
+append
+Math OFFSET = 0
+Math ID = 1
+
+For ID
+	Goto OFFSET
+	GetDString MAGIC 4
+	Get SIZE Long
+	Get HEADER_SIZE Long
+	Math SIZE + HEADER_SIZE
+
+	If MAGIC = "EOFC"
+		Break
+	Endif
+
+	If MAGIC = "MDLI"
+		String FILENAME P "SK MDLI %ID%.mdli"
+	Elif MAGIC = "PUD0"
+		String FILENAME P "SK PUD0 %ID%.pud0"
+	Elif MAGIC = "SDE3"
+		String FILENAME P "SK SDE3 %ID%.sde3"
+	Endif
+
+	Log FILENAME OFFSET SIZE
+
+	Math OFFSET + SIZE
+
+Next ID

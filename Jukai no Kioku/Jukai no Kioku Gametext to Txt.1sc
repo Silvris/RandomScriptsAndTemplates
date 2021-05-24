@@ -1,0 +1,31 @@
+//------------------------------------------------
+//--- 010 Editor v9.0.2 Script File
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+//   History: 
+//------------------------------------------------
+local int FileNum;
+local string FileName;
+local int NewFileNum;
+local string WString;
+local int Index;
+int r = 0;
+void YuYuYuGametext (int r){
+    FileNum = GetFileNum();
+    FileName = GetFileName();
+    FileNew("Text",true);
+    NewFileNum = GetFileNum();
+    FileSelect(FileNum);
+    for(i=0;i<count;i++){
+        WString = WStringToUTF8(String[i].line);
+        Index = i;
+        FPrintf(NewFileNum, "%s	%u\n", WString, Index);
+    };
+    FileSelect(NewFileNum);
+    FileSave(FileName+".txt");
+};
+YuYuYuGametext(r);

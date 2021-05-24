@@ -1,0 +1,171 @@
+//------------------------------------------------
+//--- 010 Editor v9.0.2 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+//Work-in-progress, I've not really been able to move past the header
+local int returnAdd;
+local int returnAdd2;
+local int i;
+local int firstParam = -1;
+local int lastParam = 0;
+local int unkn1Size = 0;
+local int unkn2Size = 0;
+local int unkn3Size = 0;
+local int unkn4Size = 0;
+local int headerUnknSize = 0;
+local int tableSize = 0;
+typedef struct{
+    uint nameValue;
+    returnAdd = FTell();
+    FSeek(16 + 84 + phyreStructSize - StringTableSize + nameValue);
+    string Name;
+    FSeek(returnAdd);
+}TableString;
+
+string readTable(TableString &p){
+    string s;
+    SPrintf( s, "%s", (string)p.Name);
+    return s;
+}
+
+typedef struct{
+    string StringName;
+    returnAdd2 = FTell();
+    FSeek(returnAdd);
+    uint value;
+    returnAdd = FTell();
+    FSeek(returnAdd2);
+}ValueStruct;
+
+typedef struct{
+    uint paramName;
+    returnAdd = FTell();
+    FSeek(16 + 84 + phyreStructSize - StringTableSize + paramName);
+    string Name;
+    FSeek(returnAdd);
+    uint paramType;
+    uint unkn1;
+    uint unkn2;
+    uint unkn3;
+    uint unkn4;
+    returnAdd = FTell();
+}ParamStruct;
+
+string readParam(ParamStruct &p){
+    string s;
+    SPrintf( s, "%s", (string)p.Name);
+    return s;
+}
+
+typedef struct{
+    string Resource;
+}Resource;
+
+typedef struct{
+    char PEPD[4];
+    uint version;
+    uint PHYRESize;//likely an offset to the PEPD unique data, seems to be of differing types
+    uint FileSize;
+}PEPD;
+
+typedef struct{
+    char RHYP[4];
+    uint headerSize;
+    uint phyreStructSize;
+    char GXM1[4];
+    uint m_instanceListCount;
+    uint m_arrayFixupSize;
+    uint m_arrayFixupCount;
+    uint unkns[11];
+    for (i=0;i<11;i++){
+        headerUnknSize = headerUnknSize + unkns[i];
+    };
+    uint FaceBufferLength;
+    uint VertexBufferLength;
+    uint TextureBufferLength;
+}PhyreHead;
+
+typedef struct{
+    uint DUMMY1;//parent ID
+    short paramSize2;
+    short DUMMY2;
+    uint direcName;
+    tableSize += paramSize2;
+    returnAdd = FTell();
+    FSeek(16 + 84 + phyreStructSize - StringTableSize + direcName);
+    string StringName;
+    FSeek(returnAdd);
+    uint parameterCount;
+    uint unkns[5];
+    if (parameterCount > 0){
+        firstParam = lastParam + 1;
+        local int firstParam = lastParam + 1;
+        lastParam = firstParam + parameterCount-1;
+        local int lastParam = firstParam + parameterCount-1;
+    };
+    returnAdd = FTell();
+}DirectoryStruct;
+
+string readParamNums(DirectoryStruct &p){
+    string s;
+    if(p.parameterCount > 0){
+        SPrintf( s, "%s, First Parameter:%u, Last Parameter:%u", (string)p.StringName, (int)p.firstParam, (int)p.lastParam);
+    };
+    if(p.parameterCount == 0){
+        SPrintf( s, "%s", (string)p.StringName);
+    };
+    return s;
+}
+
+typedef struct(uint length){
+    byte values[length];
+}ByteArray;
+
+typedef struct{
+    byte DownFromFour[4];
+    uint phyreStructSize;
+    uint variableCount;
+    uint directoryCount;
+    uint parameterCount;
+    uint StringTableSize;
+    uint unkns[2];
+    returnAdd = FTell();
+    FSeek(16 + 84 + phyreStructSize - StringTableSize);
+    returnAdd2 = FTell();
+    FSeek(returnAdd);
+    for (i=0;i<variableCount;i++){
+        TableString variableType<read=readTable>;
+    };
+    for(i=0;i<directoryCount;i++){
+        DirectoryStruct DirectoryValues<read=readParamNums>;//?
+    };
+    for(i=0;i<parameterCount;i++){
+        ParamStruct ImportantData<read=readParam>;
+        unkn1Size = unkn1Size + ImportantData[i].unkn1;
+        unkn2Size = unkn2Size + ImportantData[i].unkn2;
+        unkn3Size = unkn3Size + ImportantData[i].unkn3;
+        unkn4Size = unkn4Size + ImportantData[i].unkn4;
+    };
+    FSeek(16 + 84 + phyreStructSize);
+    for(i=0;i<directoryCount;i++){
+        ByteArray DirectoryValue(DirectoryValues[i].paramSize2);//?
+    };
+}PhyreStruct;
+
+PEPD PEPDHeader;
+PhyreHead PhyreHeader;
+PhyreStruct XMLStruct;
+Printf("%d\n", tableSize);
+Printf("%d", headerUnknSize);
+Printf("\n%d, %d, %d, %d", unkn1Size, unkn2Size, unkn3Size, unkn4Size);
+FSeek(PEPDHeader.PHYRESize);
+while(FTell()<FileSize())
+    Resource ResourceBind;

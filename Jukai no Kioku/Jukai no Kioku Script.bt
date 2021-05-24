@@ -1,0 +1,99 @@
+//------------------------------------------------
+//--- 010 Editor v9.0.2 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+local int Type1Count;
+local byte stringData[10000];//hope there's not any larger
+local int stringStart=0;
+local int i;
+typedef struct{
+    short unknHead;
+    short unknType; //01 = load text, 0A seems to have a float in the data?, 
+    if(unknType == 1){
+        //Printf("Type 1 Found\n");
+        Type1Count++;
+    };
+    short character;//for most values
+    short unkns[13];
+    short offset; //for 01 at least
+    short unkns2[23];
+}sxHeader;
+typedef struct{
+    wstring line;
+}scriptData;
+
+wstring ReadText(scriptData &s){
+    return s.line;
+}
+
+uint buffer[3];
+uint headerCount;
+sxHeader Header[headerCount]<optimize=false,read=ReadTextFromSx>;
+stringStart = FTell();
+scriptData script[Type1Count]<optimize=false,read=ReadText>;
+local int stringEnd = FTell();
+ReadBytes(stringData,stringStart, stringEnd-stringStart);
+
+
+wstring ReadTextFromSx(sxHeader &s){
+    if(s.unknType == 1){
+        local wstring sc = "";
+        switch(s.character){
+            case 3:
+                sc = "Yuuna:"; break;
+            case 39:
+                sc = "Tougou:"; break;
+            case 61:
+                sc = "Fuu:"; break;
+            case 83:
+                sc = "Itsuki:"; break;
+            case 119:
+                sc = "Karin:"; break;
+        };
+        local wstring sa = ReadWLine(stringStart+s.offset);
+        return sc+sa;
+    }
+    else{ return "";}
+}
+/*
+
+Types
+01 - Display Text with character
+02 - 
+03 - 
+04 - Display Character Portrait
+05 - Remove Character Portrait
+06 - 
+07 - 
+08
+09
+0A
+0B - Unknown used in KARIN_main_0101
+0C - 
+0D
+0E
+0F
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+1A - UI?
+1B - UI?
+1C
+1D
+1E
+1F - Background - offset is actual value, backgrounds are used sequentially starting at 2 (10 = bg003_a)

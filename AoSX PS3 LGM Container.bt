@@ -1,0 +1,39 @@
+//------------------------------------------------
+//--- 010 Editor v9.0.2 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+typedef struct{
+    char fileName[15];
+    byte unkn2;
+    uint unkn;
+}LGMStruct;
+
+typedef struct{
+    short alpha;
+    short red;
+    short green;
+    short blue;
+}ARGB;
+
+typedef struct{
+    byte fileName[16];
+    uint width;
+    uint height;
+    uint unkn;
+    uint fileSize;
+    if (unkn == 2) ARGB imageData[width*height];
+    else byte fileData[fileSize];
+}sgrStruct;
+
+char LGM0[4];
+uint count;
+LGMStruct OffsetTable[count];
+sgrStruct TextureData[count]<optimize=false>;

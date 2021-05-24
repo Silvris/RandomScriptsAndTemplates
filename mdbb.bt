@@ -1,0 +1,26 @@
+//------------------------------------------------
+//--- 010 Editor v10.0.2 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+local int i;
+typedef struct{
+    char animationName[64];
+    float unknParams[33];
+}Animation;
+
+string readName(Animation &a){
+    return a.animationName;
+}
+
+uint structCount;
+for(i=0;i<structCount;i++){
+    Animation animation<read=readName>;
+};

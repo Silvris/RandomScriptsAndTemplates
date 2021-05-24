@@ -1,0 +1,26 @@
+//------------------------------------------------
+//--- 010 Editor v9.0.2 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+local int i;
+typedef struct{
+    wstring line;
+}scriptData;
+wstring readScript(scriptData &s){
+    return s.line;
+};
+uint count;
+uint buffer;
+uint Data[count];
+for(i=0;i<count;i++){
+    FSeek(Data[i]+buffer);
+    scriptData String<optimize=false, read=readScript>;
+};
