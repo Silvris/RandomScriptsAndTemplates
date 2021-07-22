@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "JukaiNoKiokuScriptConvert": {
+      "commandName": "Project",
+      "commandLineArgs": "D:\\JukaiNoKioku\\lang_jp\\script\\talkevent\\TUTORIAL_01.bin"
+    }
+  }
+}

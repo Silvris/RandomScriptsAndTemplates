@@ -71,12 +71,12 @@ Types
 03 - 
 04 - Display Character Portrait
 05 - Remove Character Portrait
-06 - 
+06 - Change Character Expression
 07 - 
 08
 09
 0A
-0B - Unknown used in KARIN_main_0101
+0B - Unknown used in KARIN_main_0101 - SFX?
 0C - 
 0D
 0E
@@ -91,9 +91,13 @@ Types
 17
 18
 19
-1A - UI?
-1B - UI?
+1A - ScreenTransition/UI?
+1B - ScreenTransition/UI?
 1C
 1D
 1E
 1F - Background - offset is actual value, backgrounds are used sequentially starting at 2 (10 = bg003_a)
+20
+21
+22
+23 - Load Image - used in Tutorial

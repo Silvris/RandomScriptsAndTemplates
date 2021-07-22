@@ -1,0 +1,24 @@
+//------------------------------------------------
+//--- 010 Editor v11.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+typedef struct{
+    byte stringLen;
+    byte Name[stringLen];
+    int buffer;//potential index?
+}Filename;
+
+string ReadFilename(Filename &f){
+    return f.Name;
+}
+
+short fileCount;
+Filename file[fileCount]<optimize=false,read=ReadFilename>;

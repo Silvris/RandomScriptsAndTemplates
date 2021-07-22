@@ -1,0 +1,86 @@
+//------------------------------------------------
+//--- 010 Editor v11.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+local int i;
+local int j;
+typedef struct{
+    float x;
+    float y;
+    float z;
+}Vec3;
+
+typedef struct{
+    Vec3 Center;
+    float Radius;
+}BoundingSphere;
+
+typedef struct{
+    //BoundingSphere Min;
+    //BoundingSphere Max;
+    uint subMeshCount;
+    uint64 subMeshesOffset;
+    uint vertexFormat;
+    uint vertexSize;
+    uint vertexCount;
+    uint attributeOffsets[20];
+    uint flags;
+    uint attributeFlags;
+    uint nulls[6];
+    
+}Mesh;
+
+typedef struct{
+    local int objectStart = FTell();
+    short meshCount;
+    short materialCount;
+    uint align;
+    uint64 meshesOffset;
+    uint64 materialsOffset;
+    FSeek(objectStart+meshesOffset);
+    for(j=0;j<meshCount;j++){
+        Mesh objMesh;
+    };
+}Object;
+
+typedef struct{
+    uint64 objectNameOff;
+    local int returnAdd = FTell();
+    FSeek(objectNameOff);
+    string name;
+    FSeek(returnAdd);
+}StringOffset;
+
+string ReadStringOffset(StringOffset &s){
+    return s.name;
+};
+
+typedef struct{
+    uint magicID;
+    uint objectCount;
+    uint64 objectsOffset;
+    uint64 objectsNamesOffset;
+    uint64 textureIdCount;
+}Header;
+
+Header header;
+FSeek(header.objectsNamesOffset);
+for(i = 0; i< header.objectCount; i++){
+    StringOffset objectName<read=ReadStringOffset,optimize=false>;
+};
+
+FSeek(header.objectsOffset);
+int64 objectOffs[header.objectCount];
+for(i=0; i < header.objectCount; i++){
+    FSeek(objectOffs[i]);
+    Object object;
+};
+    

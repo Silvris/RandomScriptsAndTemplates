@@ -1,0 +1,13 @@
+C:\Users\Owner\Documents\GitHub\RandomScriptsAndTemplates\Jukai no Kioku\JukaiNoKiokuScriptConvert\bin\Debug\netcoreapp3.1\JukaiNoKiokuScriptConvert.exe
+C:\Users\Owner\Documents\GitHub\RandomScriptsAndTemplates\Jukai no Kioku\JukaiNoKiokuScriptConvert\bin\Debug\netcoreapp3.1\JukaiNoKiokuScriptConvert.deps.json
+C:\Users\Owner\Documents\GitHub\RandomScriptsAndTemplates\Jukai no Kioku\JukaiNoKiokuScriptConvert\bin\Debug\netcoreapp3.1\JukaiNoKiokuScriptConvert.runtimeconfig.json
+C:\Users\Owner\Documents\GitHub\RandomScriptsAndTemplates\Jukai no Kioku\JukaiNoKiokuScriptConvert\bin\Debug\netcoreapp3.1\JukaiNoKiokuScriptConvert.runtimeconfig.dev.json
+C:\Users\Owner\Documents\GitHub\RandomScriptsAndTemplates\Jukai no Kioku\JukaiNoKiokuScriptConvert\bin\Debug\netcoreapp3.1\JukaiNoKiokuScriptConvert.dll
+C:\Users\Owner\Documents\GitHub\RandomScriptsAndTemplates\Jukai no Kioku\JukaiNoKiokuScriptConvert\bin\Debug\netcoreapp3.1\JukaiNoKiokuScriptConvert.pdb
+C:\Users\Owner\Documents\GitHub\RandomScriptsAndTemplates\Jukai no Kioku\JukaiNoKiokuScriptConvert\obj\Debug\netcoreapp3.1\JukaiNoKiokuScriptConvert.csprojAssemblyReference.cache
+C:\Users\Owner\Documents\GitHub\RandomScriptsAndTemplates\Jukai no Kioku\JukaiNoKiokuScriptConvert\obj\Debug\netcoreapp3.1\JukaiNoKiokuScriptConvert.AssemblyInfoInputs.cache
+C:\Users\Owner\Documents\GitHub\RandomScriptsAndTemplates\Jukai no Kioku\JukaiNoKiokuScriptConvert\obj\Debug\netcoreapp3.1\JukaiNoKiokuScriptConvert.AssemblyInfo.cs
+C:\Users\Owner\Documents\GitHub\RandomScriptsAndTemplates\Jukai no Kioku\JukaiNoKiokuScriptConvert\obj\Debug\netcoreapp3.1\JukaiNoKiokuScriptConvert.csproj.CoreCompileInputs.cache
+C:\Users\Owner\Documents\GitHub\RandomScriptsAndTemplates\Jukai no Kioku\JukaiNoKiokuScriptConvert\obj\Debug\netcoreapp3.1\JukaiNoKiokuScriptConvert.dll
+C:\Users\Owner\Documents\GitHub\RandomScriptsAndTemplates\Jukai no Kioku\JukaiNoKiokuScriptConvert\obj\Debug\netcoreapp3.1\JukaiNoKiokuScriptConvert.pdb
+C:\Users\Owner\Documents\GitHub\RandomScriptsAndTemplates\Jukai no Kioku\JukaiNoKiokuScriptConvert\obj\Debug\netcoreapp3.1\JukaiNoKiokuScriptConvert.genruntimeconfig.cache

@@ -1,0 +1,43 @@
+//------------------------------------------------
+//--- 010 Editor v11.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+local int i;
+typedef struct{
+    string Name;
+    uint offset;
+    uint compressedSize;
+    uint decompressedSize;
+    uint unknown;//flags? 2 == gzip compression 16 == ? 32 == ?
+}Entry;
+
+typedef struct(uint length){
+    byte data[length];
+}File;
+
+typedef struct{
+    char FARc[4];
+    uint headerLength;//true size will be this + 0x8
+    uint flags;
+    uint unkn2;
+    uint mAlignment;//?
+    uint Format;//?
+    uint entryCount;
+    uint unkn5;//padding
+    Entry entries[entryCount]<optimize=false>;
+}Header;
+
+BigEndian();
+Header header;
+for(i=0;i<header.entryCount;i++){
+    FSeek(header.entries[i].offset);
+    File file(header.entries[i].compressedSize);
+};
