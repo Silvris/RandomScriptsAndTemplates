@@ -8,4 +8,4 @@ Output path: what the resulting file should be called
 Bundles readme:
 These are some pre-made bundles, just replace the respective bundle in FINAL_FANTASY_Data/StreamingData with it.
 
-Mr. Saturn font is not my creation, was downloaded from the following site: https://earthboundcentral.com/2009/11/ultimate-earthbound-font-pack/
+Mr. Saturn and Earthbound Zero fonts are not my creation, was downloaded from the following site: https://earthboundcentral.com/2009/11/ultimate-earthbound-font-pack/
