@@ -1,0 +1,72 @@
+//------------------------------------------------
+//--- 010 Editor v11.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+//Final Fantasy Pixel Remaster Font file
+
+typedef struct{
+    int stringLen;
+    char stringData[stringLen];
+    while((FTell() % 4) != 0){
+        byte padding<hidden=true>;
+    };
+}CSharpString;
+
+typedef struct(uint size){
+    byte file[size];
+}File;
+
+typedef struct{
+    int m_FileID;
+    int64 m_PathID;
+}Material;
+
+typedef struct{
+    int m_FileID;
+    int64 m_PathID;
+}Texture;
+
+typedef struct{
+    int m_FileID;
+    int64 m_PathID;
+}FontPtr;
+    
+//Header Size: 84 - 0x54 - SE-ALPSTN
+typedef struct{
+    CSharpString fontName; //1 more than fontNameSize
+    float m_LineSpacing;
+    Material m_DefaultMaterial;
+    float m_FontSize;
+    Texture m_Texture;
+    int m_AsciiStartOffset;
+    float m_Tracking;
+    int m_CharacterSpacing;
+    int m_CharacterPadding;
+    int   m_ConvertCase;
+    int   m_CharacterRectsSize;
+    //TODO - see if used in FFPR
+    int m_KerningValuesSize;
+    //TODO - see if used in FFPR
+    float m_PixelScale;
+    uint FontDataSize;
+    File fontFile(FontDataSize);
+    float m_Ascent;
+    float m_Descent;
+    uint m_DefaultStyle;
+    int m_FontNamesSize;
+    CSharpString m_FontNames[m_FontNamesSize]<optimize=false>;
+    int m_FallbackFontsSize;
+    FontPtr m_FallbackFonts[m_FallbackFontsSize];
+    int m_FontRenderingMode;
+    byte m_UseLegacyBoundsCalculation;
+    byte m_ShouldRoundAdvanceValue;
+}Header;
+Header header;
