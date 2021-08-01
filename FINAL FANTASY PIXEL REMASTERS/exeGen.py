@@ -11,7 +11,8 @@ os.chdir(dname)
 
 
 files = [
-    f"FontInject.py"
+    f"FFPR-FontInject.py",
+    f"FFPR-TextGen.py"
 ]
 
 PyInstaller.config.CONF["workpath"] = dname + "/dist"

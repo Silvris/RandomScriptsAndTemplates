@@ -1,0 +1,86 @@
+//------------------------------------------------
+//--- 010 Editor v11.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+local int i;
+local int j;
+typedef struct{
+    char magic[4];
+    byte version;
+    byte reserved;
+    short size;
+    uint offset;
+    uint reserved;
+}ChunkHeader;
+
+typedef struct{
+    byte version;
+    byte reserved;
+    short size;
+    byte channels;
+    byte format;
+    short mtrlIndex;
+    uint sampleRate;
+    uint loopStart;
+    uint loopEnd;
+    uint extraDataSize;
+    uint streamSize;
+    uint extraDataID;
+}StreamHeader;
+
+typedef struct{
+    local int startOff = FTell();
+    byte version;
+    byte reserved;
+    short size;
+    short entries;
+    short reserved;
+    uint64 reserved;
+    uint64 entryOffset[entries];
+    for(j=0;j<entries;j++){
+        FSeek(startOff+entryOffset[j]);
+        StreamHeader stream;
+    };
+}Material;
+
+typedef struct{
+    ChunkHeader header;
+    local int returnAdd = FTell();
+    FSeek(header.offset);
+    switch(header.magic){
+        case "mtrl":
+            Material materialStream;
+            break;
+        default:
+            break;
+    };
+    FSeek(returnAdd);
+}Chunk;
+
+typedef struct{
+    char magic[4];
+    byte version;//0x2
+    byte flags;
+    short headerSize;
+    byte chunkCount;
+    byte filenameSize;
+    short num;
+    uint fileSize;
+    char fileName[filenameSize];
+    while((FTell() % 16) != 0){
+        byte padding<hidden=true>;
+    };
+    for(i=0;i<chunkCount;i++){
+        Chunk chunk;
+    };
+}Header;
+
+Header header;
