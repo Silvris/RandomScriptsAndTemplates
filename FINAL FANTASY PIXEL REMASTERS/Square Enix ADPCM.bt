@@ -22,12 +22,57 @@ typedef struct{
 }ChunkHeader;
 
 typedef struct{
+    string Name;
+    while((FTell() % 16) !=0){
+        byte padding<hidden=true>;
+    };
+    float volume;
+    float audibleRange;
+    ushort number;
+    float innerRange;
+    uint useGranular;//a bool, but fills 4 bytes of data
+    uint sampleRate;
+    byte numSection;
+    byte numMode;
+}Music;
+
+typedef struct{
+    byte version;
+    byte output;
+    short size;
+    byte sectCount;
+    byte modeCount;
+    byte category;
+    byte priority;
+    short number;
+    byte flags;//these should be present in SEAD.cs
+}MusicHeader;
+
+typedef struct{
+    local int start = FTell();
+    byte version;
+    byte output;
+    short size;
+    short entryCount;
+    while((FTell()%16) != 0){
+        byte padding<hidden=true>;
+    };
+    uint entryOffs[entryCount];//would have to find one with more than one to see what size these are
+    local int entry;
+    for(entry=0;entry<entryCount;entry++){
+        FSeek(start+entryOffs[entry]);
+        MusicHeader music;
+    };
+}MusicTable;
+
+typedef struct{
     byte version;
     byte reserved;
     short size;
     byte channels;
+    //in the IL2CPP dump as uint number;
     byte format;
-    short mtrlIndex;
+    short mtrlIndex;//not present in the il2cpp dump
     uint sampleRate;
     uint loopStart;
     uint loopEnd;
@@ -56,6 +101,9 @@ typedef struct{
     local int returnAdd = FTell();
     FSeek(header.offset);
     switch(header.magic){
+        case "musc":
+            MusicTable music;
+            break;
         case "mtrl":
             Material materialStream;
             break;
