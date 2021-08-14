@@ -2,6 +2,12 @@ import sys
 import os
 import struct
 
+abspath = os.path.abspath(sys.argv[0])
+
+dname = os.path.dirname(abspath)
+
+os.chdir(dname)
+
 def writeInt(file,val):
     file.write(struct.pack("i",val))
 
@@ -15,6 +21,7 @@ def writeCSharpString(file,stringIn):
 #TextAsset only has two major structures
 #Name and Buffer
 #Editing buffer requires editing the size of the buffer at the start, which is what this will do programmatically
+#
 
 def createUnityTextAsset(inFile):
     outFile = open(inFile.name+".textasset",'wb') #write binary is to allow this to also work on .mab/.sab audio present within the files

@@ -1,0 +1,29 @@
+//------------------------------------------------
+//--- 010 Editor v11.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+typedef struct{
+    string data;
+}String;
+
+local int i;
+local int lowestOff = 0;
+uint null;
+char TEXT[4];
+byte version;
+byte count;
+byte nulls[2];
+uint fileLength;
+uint offset[count];
+for(i=0;i<count;i++){
+    FSeek(offset[i]);
+    String data;
+};

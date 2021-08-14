@@ -1,0 +1,139 @@
+//------------------------------------------------
+//--- 010 Editor v11.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+typedef struct{
+    int stringLen;
+    char stringData[stringLen];
+    while((FTell() % 4) != 0){
+        byte padding<hidden=true>;
+    };
+}CSharpString;
+
+typedef struct(uint size){
+    byte file[size];
+}File;
+
+typedef struct{
+    int m_FileID;
+    int64 m_PathID;
+}PPtr;
+
+typedef struct{
+    float x;
+    float y;
+    float width;
+    float height;
+}Rect;
+
+typedef struct{
+    float x;
+    float y;
+}Vec2f;
+
+typedef struct{
+    float x;
+    float y;
+    float z;
+}Vec3f;
+
+typedef struct{
+    float x;
+    float y;
+    float z;
+    float w;
+}Vec4f;
+
+typedef struct{
+    Vec3f m_Center;
+    Vec3f m_Extent;
+}AABB;
+
+typedef struct{
+    uint firstByte;
+    uint indexCount;
+    int topology;
+    uint baseVertex;
+    uint firstVertex;
+    uint vertexCount;
+    AABB localAABB;
+}SubMesh;
+
+typedef struct{
+    byte stream;
+    byte offset;
+    byte format;
+    byte dimension;
+}ChannelInfo;
+
+typedef struct{
+    uint m_VertexCount;
+    struct Channels{
+        uint ChannelCount;
+        ChannelInfo Channel[ChannelCount];
+    }m_Channels;
+    uint dataSize;
+    byte TypelessData[dataSize];
+}VertexData;
+
+typedef struct{
+    PPtr texture;
+    PPtr alphaTexture;
+    uint secondaryTextureCount;
+    PPtr secondaryTextures[secondaryTextureCount];
+    uint m_SubMeshesCount;
+    SubMesh m_SubMeshes[m_SubMeshesCount];
+    uint m_IndexBufferSize;
+    struct IndexBuffer{
+        byte m_IndexBuffer[m_IndexBufferSize];
+    }m_IndexBuffer;
+    while((FTell() % 4) != 0){
+        byte padding<hidden=true>;
+    };
+    VertexData m_VertexData;
+    uint m_BindposeCount;
+    //todo BindposeData
+    Rect textureRect;
+    Vec2f textureRectOffset;
+    Vec2f atlasRectOffset;
+    uint settingsRaw;
+    Vec4f UVTransform;
+    float downscaleMultiplier;
+}SpriteRenderData;
+
+typedef struct{
+    uint size;
+    Vec2f Data[size];
+}PhysicsShape;
+
+typedef struct{
+    CSharpString Name;
+    Rect m_Rect;
+    Vec2f m_Offset;
+    Vec4f m_Border;
+    float m_PixelsToUnits;
+    Vec2f m_Pivot;
+    uint m_Extrude;
+    uint m_IsPolygon;//boolean
+    struct RenderDataKey{
+        GUID first;
+        int64 second;
+    }m_RenderDataKey;
+    uint m_AtlasTagsCount;
+    //todo find what type this is
+    PPtr m_SpriteAtlas;
+    SpriteRenderData m_RD;
+    uint m_PhysicsShapeSize;
+    PhysicsShape m_PhysicsShape[m_PhysicsShapeSize]<optimize=false>;
+    uint m_BoneCount;
+    //todo bones
+}Sprite;
+Sprite sprite;

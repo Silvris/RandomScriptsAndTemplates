@@ -13,30 +13,75 @@
 local int i;
 local int j;
 typedef struct{
-    char magic[4];
     byte version;
     byte reserved;
     short size;
+}BaseHeader;
+
+typedef struct{
+    local int start = FTell();
+    BaseHeader header;
+    short entryCount;
+    while((FTell()%16) != 0){
+        byte padding<hidden=true>;
+    };
+    uint entryOffs[entryCount];//would have to find one with more than one to see what size these are
+}EntryTable;
+
+typedef struct{
+    char magic[4];
+    BaseHeader header;
     uint offset;
     uint reserved;
 }ChunkHeader;
 
 typedef struct{
-    string Name;
-    while((FTell() % 16) !=0){
-        byte padding<hidden=true>;
-    };
-    float volume;
-    float audibleRange;
-    ushort number;
-    float innerRange;
-    uint useGranular;//a bool, but fills 4 bytes of data
-    uint sampleRate;
-    byte numSection;
-    byte numMode;
-}Music;
+    BaseHeader header;
+    ushort materialIndex;
+    ushort loopCount;
+    float offset;
+    uint endPoint;
+}Layer;
 
 typedef struct{
+    BaseHeader header;
+    byte nameSize;
+    byte layerCount;
+    short customPointCount;
+    uint entryPoints;//in samples
+    uint exitPoints;
+    uint loopStart;
+    uint loopEnd;
+    uint meterCount;
+    struct Meter{
+        byte data[68];
+    }meters[meterCount];//this is a guess
+    char Name[nameSize];
+    while((FTell()%16) != 0){
+        byte padding<hidden=true>;
+    };
+    local int sectEnd = FTell();
+}Section;
+
+typedef struct(uint muscOffset,uint sectionCount,uint tableOffset){
+    //parse section, then its individual layers I believe
+    local int sect, lay, currentLayer,sectOffset, offset;
+    for(sect=0;sect<sectionCount;sect++){
+        offset = ReadUInt(tableOffset+(sect*4)+(currentLayer*4));
+        sectOffset = muscOffset+offset;
+        FSeek(sectOffset);
+        Section section;
+        for(lay=0;lay<section[sect].layerCount;lay++){
+            currentLayer++;
+            offset = ReadUInt(section.sectEnd+(currentLayer*4));
+            FSeek(sectOffset+offset);
+            Layer layer;
+        };
+    };
+}SectionTable;
+
+typedef struct{
+    local int muscOffset = FTell(); //needed for SectionTable
     byte version;
     byte output;
     short size;
@@ -46,29 +91,41 @@ typedef struct{
     byte priority;
     short number;
     byte flags;//these should be present in SEAD.cs
+    byte distanceAttenuationCurve;
+    float interiorFactor;
+    byte unkns[16];
+    float audibleRange;
+    float innerRange;
+    float volume;
+    byte sendBusses[4];
+    float sendVolumes[4];
+    uint counts;
+    uint sampleRate;
+    byte nameSize;
+    byte port;
+    byte numSection;
+    byte numMode;
+    float audioLength;
+    float unknFloats[4];
+    char Name[nameSize];
+    while((FTell() % 16) !=0){
+        byte padding<hidden=true>;
+    };
+    local int tableOffset = FTell();
+    SectionTable sections(muscOffset,sectCount,tableOffset);
 }MusicHeader;
 
 typedef struct{
-    local int start = FTell();
-    byte version;
-    byte output;
-    short size;
-    short entryCount;
-    while((FTell()%16) != 0){
-        byte padding<hidden=true>;
-    };
-    uint entryOffs[entryCount];//would have to find one with more than one to see what size these are
+    EntryTable entryData;
     local int entry;
-    for(entry=0;entry<entryCount;entry++){
-        FSeek(start+entryOffs[entry]);
+    for(entry=0;entry<entryData.entryCount;entry++){
+        FSeek(entryData.start+entryData.entryOffs[entry]);
         MusicHeader music;
     };
 }MusicTable;
 
 typedef struct{
-    byte version;
-    byte reserved;
-    short size;
+    BaseHeader header;
     byte channels;
     //in the IL2CPP dump as uint number;
     byte format;
@@ -82,16 +139,10 @@ typedef struct{
 }StreamHeader;
 
 typedef struct{
-    local int startOff = FTell();
-    byte version;
-    byte reserved;
-    short size;
-    short entries;
-    short reserved;
-    uint64 reserved;
-    uint64 entryOffset[entries];
-    for(j=0;j<entries;j++){
-        FSeek(startOff+entryOffset[j]);
+    EntryTable entryData;
+    local int entry;
+    for(entry=0;entry<entryData.entryCount;entry++){
+        FSeek(entryData.start+entryData.entryOffs[entry]);
         StreamHeader stream;
     };
 }Material;
