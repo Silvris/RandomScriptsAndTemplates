@@ -16,4 +16,7 @@ class SmplChunk:
         self.loops = loops
 
 class WaveFile:
-    def __main__(self,tag,chunks)
+    def __main__(self,tag,chunks):
+        self.tag = tag
+        self.chunks = chunks
+
