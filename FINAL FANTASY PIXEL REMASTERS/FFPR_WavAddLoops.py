@@ -2,6 +2,8 @@ import sys
 import os
 import struct
 
+#I remember having a reason for making this more expansive, but I forgor
+
 class OtherChunk:
     def __main__(self,tag,size,data):
         self.tag = tag

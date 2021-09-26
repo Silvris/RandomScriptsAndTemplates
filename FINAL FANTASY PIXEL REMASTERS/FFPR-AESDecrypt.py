@@ -1,5 +1,5 @@
 from py3rijndael import RijndaelCbc, ZeroPadding
-from Crypto.Protocol import KDF
+from Cryptodome.Protocol import KDF
 import zlib
 import base64
 import sys
@@ -40,6 +40,8 @@ def deobfuscateFile(inFile):
     encBytes = base64.b64decode(buffer,validate=False)
     print(len(encBytes))
     encBytes = bytearray(encBytes)
+    while(len(encBytes) % 32) != 0:
+        encBytes.append(0)
     decBytes = cipher.decrypt(bytes(encBytes))
     finalFile = inflate(decBytes)
     if os.path.basename(inFile.name).encode('utf-8') in filenames:
