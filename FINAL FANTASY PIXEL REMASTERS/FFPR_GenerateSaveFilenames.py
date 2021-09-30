@@ -1,5 +1,13 @@
 import base64
 from hashlib import sha256
+import sys
+def GenerateFilename(filename):
+    print(filename)
+    hashval = sha256(filename.encode('utf-8'))
+    print(hashval.digest())
+    encname = base64.b64encode(hashval.digest())
+    return encname
+
 def GenerateFilenames():
     filenames = list()
     for i in range(99):
@@ -17,3 +25,10 @@ def GenerateFilenames():
         gennedFilenames[encname] = filename
 
     return gennedFilenames
+
+if __name__ == "__main__":
+
+    if len(sys.argv) > 1:
+        for i, arg in enumerate(sys.argv):
+            if i > 0:
+                GenerateFilename(arg)

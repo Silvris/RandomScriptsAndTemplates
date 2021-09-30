@@ -12,7 +12,8 @@ os.chdir(dname)
 
 files = [
     f"FFPR-FontInject.py",
-    f"FFPR-TextGen.py"
+    f"FFPR-TextGen.py",
+    f"PrettyPrintJson.py"
 ]
 
 PyInstaller.config.CONF["workpath"] = dname + "/dist"
