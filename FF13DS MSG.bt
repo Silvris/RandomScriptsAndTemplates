@@ -10,8 +10,8 @@
 //  ID Bytes: 
 //   History: 
 //------------------------------------------------
-typedef struct{
-    string data;
+typedef struct(uint size){
+    byte data[size];
 }String;
 
 local int i;
@@ -25,5 +25,10 @@ uint fileLength;
 uint offset[count];
 for(i=0;i<count;i++){
     FSeek(offset[i]);
-    String data;
+    if(i==count-1){
+        String data(fileLength-offset[i]);
+    }
+    else{
+        String data(offset[i+1] - offset[i]);
+    };
 };
