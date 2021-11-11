@@ -1,0 +1,48 @@
+//------------------------------------------------
+//--- 010 Editor v12.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+typedef struct{
+    ushort stringSize;
+    char stringData[stringSize];
+    ushort nullTerminate;//clever, using a ushort even on ASCII strings
+    ushort null;
+    //char data[5];
+}String;
+
+typedef struct{
+    String a;
+    String b;
+    String c;
+    String d;
+    String e;
+    String f;
+    String g;
+    String h;
+    String i;
+    String j;
+    String k;
+    String l;
+}StringLanguage;
+
+string ReadStringN(String &s){
+    if(s.stringSize > 0){
+        string st;
+        SPrintf(st, "%c", s.stringData);
+        return st;
+    }
+    else{
+        return "";
+    };
+};
+BigEndian();
+ushort stringCount;
+StringLanguage strings[stringCount]<optimize=false,read=ReadStringN>;
