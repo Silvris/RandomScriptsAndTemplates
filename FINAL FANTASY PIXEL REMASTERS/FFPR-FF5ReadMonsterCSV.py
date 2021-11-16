@@ -4,7 +4,7 @@ import sys
 
 class Monster:
     #all of the values we'd want from the monster csv
-    def __init__(self,name,lv,hp,mp,exp,gil,strength,vitality,agility,intelligence,spirit,magic,attack,abilityAttack,defense,abilityDefense,accuracy,evasion,magic_evasion,critical,luck,weight,IsBoss,species,resistance_attribute,resistance_condition,attackNum,attackBonus,dropRate,drops,steals,scriptID):
+    def __init__(self,name,lv,hp,mp,exp,gil,strength,vitality,agility,intelligence,spirit,magic,attack,abilityAttack,defense,abilityDefense,accuracy,evasion,magic_evasion,critical,luck,weight,group,IsBoss,species,resistance_attribute,resistance_condition,attackNum,attackBonus,dropRate,drops,steals,scriptID):
         self.name = name
         self.lvl = lv
         self.hp = hp
@@ -27,6 +27,7 @@ class Monster:
         self.critical = critical
         self.luck = luck
         self.weight = weight
+        self.group = group
         self.IsBoss = IsBoss
         self.species = species
         self.resistance_attribute = resistance_attribute
@@ -75,7 +76,7 @@ for monster in monsterData:
         name,monster['lv'],monster['hp'],monster['mp'],monster['exp'],monster['gill'],
         monster['strength'],monster['vitality'],monster['agility'],monster['intelligence'],monster['spirit'],monster['magic'],
         monster['attack'],monster["ability_attack"],monster['defense'],monster['ability_defense'],monster['accuracy_rate'],monster['evasion_rate'],monster['magic_evasion_rate'],monster['critical_rate'],monster['luck'],
-        monster['weight'],monster['boss'],monster["species"],monster["resistance_attribute"],monster["resistance_condition"],monster["attack_count"],monster["attack_plus"],monster["drop_rate"],drops,steals,monster["script_id"]))
+        monster['weight'],monster["monster_flag_group_id"],monster['boss'],monster["species"],monster["resistance_attribute"],monster["resistance_condition"],monster["attack_count"],monster["attack_plus"],monster["drop_rate"],drops,steals,monster["script_id"]))
 
 for monster in monsters:
     #print(monster.name, monster.IsBoss)
@@ -85,6 +86,7 @@ for monster in monsters:
         outdata.write("BOSS\n")
     else:
         outdata.write("Monster\n")
+    outdata.write("Group:{}\n".format(monster.group))
     outdata.write("HP:{}\n".format(monster.hp))
     outdata.write("MP:{}\n".format(monster.mp))
     outdata.write("EXP Gained:{}\n".format(monster.exp))
