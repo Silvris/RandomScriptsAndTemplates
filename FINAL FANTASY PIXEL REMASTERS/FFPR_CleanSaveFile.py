@@ -52,7 +52,7 @@ def cleanSaveFile(savePath):
             #these are all one layer json, aside from mapData
             data = json.loads(saveFile[key])
             if(key == 'mapData'):
-                data[key] = checkLowerJson(data[key])
+                data = checkLowerJson(data)
             outFile = open(outputPath+key+".json",'w')
             json.dump(data,outFile,indent=4)
             outFile.close()
