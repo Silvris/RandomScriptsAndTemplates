@@ -45,4 +45,4 @@ string ReadStringN(String &s){
 };
 BigEndian();
 ushort stringCount;
-StringLanguage strings[stringCount]<optimize=false,read=ReadStringN>;
+StringLanguage strings[stringCount]<optimize=false>;

@@ -1,0 +1,25 @@
+//------------------------------------------------
+//--- 010 Editor v12.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+typedef struct{
+    uint off1;//offsets could be layer information?
+    uint off2;
+    uint off3;
+    uint off4;//eof on mpk0_1
+}Header;
+
+BigEndian();
+Header header;
+ubyte data1[header.off2-header.off1];
+ubyte data2[header.off3-header.off2];
+ubyte data3[header.off4-header.off3];
+

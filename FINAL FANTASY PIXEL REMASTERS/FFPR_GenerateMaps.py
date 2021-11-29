@@ -91,7 +91,7 @@ for Map in maps:
         colors = dict()
         for encounterGroup in encount["unique_grid_number"]:
             colors[encounterGroup] = random.choices(range(256), k=3)
-            colors[encounterGroup].append(128)
+            colors[encounterGroup].append(255)
             colors[encounterGroup] = tuple(colors[encounterGroup])
         tiles = list()
         for tile in encount["cells"]:

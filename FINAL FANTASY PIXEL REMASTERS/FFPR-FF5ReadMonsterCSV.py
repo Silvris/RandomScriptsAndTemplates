@@ -87,6 +87,7 @@ for monster in monsters:
     else:
         outdata.write("Monster\n")
     outdata.write("Group:{}\n".format(monster.group))
+    outdata.write("Level:{}\n".format(monster.lvl))
     outdata.write("HP:{}\n".format(monster.hp))
     outdata.write("MP:{}\n".format(monster.mp))
     outdata.write("EXP Gained:{}\n".format(monster.exp))
