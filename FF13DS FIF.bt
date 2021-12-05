@@ -1,0 +1,27 @@
+//------------------------------------------------
+//--- 010 Editor v12.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+typedef struct{
+    ushort xPos;
+    ushort yPos;
+    ushort size;
+}Character;
+
+typedef struct{
+    ushort unkn1;
+    ushort characterCount;
+    ushort unkn2;
+    short unknFF[137];
+}Header;
+
+Header header;
+Character characters[header.characterCount];
