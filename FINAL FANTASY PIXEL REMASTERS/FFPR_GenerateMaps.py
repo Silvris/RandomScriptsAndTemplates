@@ -102,6 +102,24 @@ for Map in maps:
                 encountMap.paste(tiles[(y*width)+(x)],(((x)*twidth),(y*theight),((x+1)*twidth),((y+1)*theight)),tiles[(y*width)+(x)])
         outputMaps.append([Map["name"]+"-encounter",encountMap])
     
+    if "collision" in Map:
+        collision = json.load(open(packageDir+Map["collision"]+".json",'r'))
+        twidth = int(outputMap.width / 16)
+        theight = int(outputMap.height / 16) #not fantastic but collision doesn't store width/height
+        width = outputMap.width
+        height = outputMap.height
+        colors = dict()
+        colors[0] = {0,0,0,0}
+        colors[1] = {1,0,1,1}
+        tiles = list()
+        for tile in collision["cells"]:
+            tiles.append(Image.new("RGBA",(twidth,theight),colors[tile]))
+        collisionMap = outputMap.copy()
+        for y in range(height):
+            for x in range(width):
+                collisionMap.paste(tiles[(y*width)+(x)],(((x)*twidth),(y*theight),((x+1)*twidth),((y+1)*theight)),tiles[(y*width)+(x)])
+        outputMaps.append([Map["name"]+"-collision",collisionMap])
+
     for output in outputMaps:
         os.makedirs(packageDir + "/maps/",exist_ok=True)
         output[1].save(open(packageDir + "/maps/" + output[0] + ".png",'wb'))

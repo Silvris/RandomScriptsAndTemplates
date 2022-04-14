@@ -1,6 +1,7 @@
 import json
 import sys
 import os
+from pathlib import Path
 
 abspath = os.path.abspath(sys.argv[0])
 
@@ -34,13 +35,23 @@ def checkLowerJson(jobj):
     return jobj
 
 def prettyPrintJson(fileName):
-    jf = open(fileName,'r',encoding='utf-8')
-    jdata = json.load(jf)
-    jf.close()
-    jdata = checkLowerJson(jdata)
-    jf = open(fileName,'w',encoding='utf-8')
-    json.dump(jdata,jf,indent=4,ensure_ascii=False)
-    jf.close()
+    if(os.path.isdir(fileName)):
+        for path in Path(fileName).rglob("*.json"):
+            jf = open(path,'r',encoding='utf-8')
+            jdata = json.load(jf)
+            jf.close()
+            jdata = checkLowerJson(jdata)
+            jf = open(path,'w',encoding='utf-8')
+            json.dump(jdata,jf,indent=4,ensure_ascii=False)
+            jf.close()
+    else:
+        jf = open(fileName,'r',encoding='utf-8')
+        jdata = json.load(jf)
+        jf.close()
+        jdata = checkLowerJson(jdata)
+        jf = open(fileName,'w',encoding='utf-8')
+        json.dump(jdata,jf,indent=4,ensure_ascii=False)
+        jf.close()
 
 if __name__ == "__main__":
     if len(sys.argv) > 1:
