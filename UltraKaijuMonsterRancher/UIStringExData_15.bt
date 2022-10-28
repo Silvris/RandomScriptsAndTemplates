@@ -1,0 +1,25 @@
+//------------------------------------------------
+//--- 010 Editor v13.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+typedef struct{
+    byte unkn; //I think this is a datatype, since it's only ever 1 on floats
+    uint data;
+}Int5;
+
+string ReadInt5(Int5 &i){
+    string s;
+    SPrintf(s, "%u", i.data);
+    return s;
+}
+
+uint num;
+Int5 dat[num]<read=ReadInt5>;

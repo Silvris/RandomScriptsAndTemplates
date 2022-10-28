@@ -1,0 +1,31 @@
+//------------------------------------------------
+//--- 010 Editor v13.0 Script File
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+//   History: 
+//------------------------------------------------
+local int FileNum;
+local string FileName;
+local int NewFileNum;
+local int Index;
+local int i;
+void DumpUKMRMonsterNames(){
+    RunTemplate("UIStringExData_15.bt");
+    FileNum = GetFileNum();
+    FileName = GetFileName();
+    FileNew("Text",true);
+    NewFileNum = GetFileNum();
+    FileSelect(FileNum);
+    FPrintf(NewFileNum, "Index,Name\n");
+    for(Index=0;Index<num;Index++){
+        FPrintf(NewFileNum, "%i,%u\n", Index, dat[Index].data);
+    };
+    FileSelect(NewFileNum);
+    FileSave("UKMR-MonsterNameRemapP2.csv");
+};
+
+DumpUKMRMonsterNames();

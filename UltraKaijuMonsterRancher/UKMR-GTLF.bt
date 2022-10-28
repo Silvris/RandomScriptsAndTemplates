@@ -1,0 +1,40 @@
+//------------------------------------------------
+//--- 010 Editor v13.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+local int offset = 0;
+typedef struct(int modulo){
+    while(((FTell() - offset) % modulo) != 0){
+        byte align<hidden=true>;
+    };
+}Align;
+
+typedef struct{
+    int streamSize;
+    byte compData[streamSize]<bgcolor=0x330033>;
+    Align align(64)<hidden=true>;
+}File;
+
+local int i;
+uint magic;
+uint unkn;
+uint num;
+uint unkn;
+uint unkns[num*3];
+offset = FTell();
+uint flags; //unknown
+uint fileNum;
+uint decompTotal; //total size for decompressed files, likely for an output array to be generated
+uint compSizes[fileNum];
+Align align(128)<hidden=true>;
+for(i=0;i<fileNum;i++){
+    File file<optimize=false>;
+};

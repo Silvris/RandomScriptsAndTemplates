@@ -1,0 +1,66 @@
+//------------------------------------------------
+//--- 010 Editor v13.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+typedef struct{
+    byte unkn;
+    int data;
+}Int5;
+
+string ReadInt5(Int5 &i){
+    string s;
+    SPrintf(s, "%i", i.data);
+    return s;
+}
+
+string ReadRequirement(Int5 &i){
+    string s;
+    switch(i.data){
+        case 0:
+            s = "Life";
+            break;
+        case 1:
+            s = "Power";
+            break;
+        case 2:
+            s = "Intelligence";
+            break;
+        case 3:
+            s = "Skill";
+            break;
+        case 4:
+            s = "Speed";
+            break;
+        case 5:
+            s = "Defense";
+            break;
+    };
+    return s;
+}
+
+typedef struct{
+    Int5 MainBreed<read=ReadInt5>;
+    Int5 MainSubBreed<read=ReadInt5>;
+    Int5 ExcludeMainSubBreed<read=ReadInt5>;
+    Int5 Unkn1<read=ReadInt5>;
+    Int5 TechIndex<read=ReadInt5>;
+    Int5 data[2]<read=ReadInt5>;
+    if(data[0].data != -1) Printf("%i\n", data[0].data);
+    if(data[1].data != 0) Printf("%i\n", data[1].data);
+    Int5 Requirement1<read=ReadRequirement>;
+    Int5 Numerical1<read=ReadInt5>;
+    Int5 Requirement2<read=ReadRequirement>;
+    Int5 Numerical2<read=ReadInt5>;
+}DataStruct;
+
+int dataNum;
+
+DataStruct data[dataNum]<optimize=false>;

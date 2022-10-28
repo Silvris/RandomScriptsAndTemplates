@@ -1,0 +1,41 @@
+//------------------------------------------------
+//--- 010 Editor v13.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+local int i;
+local int totalName;
+typedef struct{
+    uint offset;
+    uint size;
+}StringInfo;
+
+typedef struct(int size){
+    local int Size = size / 2;
+    wchar_t str[Size];
+}String;
+
+string ReadStr(String &s){
+    return s.str;
+};
+
+uint nameNum;
+int nameIndices[nameNum];
+for(i=0;i<nameNum;i++){
+    if(nameIndices[i] != -1){
+        totalName++;
+    };
+};
+StringInfo nameInfo[totalName];
+local int StringStart = FTell();
+for(i=0;i<totalName;i++){
+    FSeek(StringStart+nameInfo[i].offset);
+    String s(nameInfo[i].size)<read=ReadStr>;
+};

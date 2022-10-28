@@ -1,0 +1,24 @@
+//------------------------------------------------
+//--- 010 Editor v12.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+local int i;
+typedef struct{
+    uint fileType;
+    uint unkn1;
+    uint fileSize;
+    uint unkn2;
+    byte data[fileSize];
+}FileData;
+
+while(FTell() < FileSize()){
+FileData file<optimize=false>;
+}

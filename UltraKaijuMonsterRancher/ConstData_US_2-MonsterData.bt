@@ -1,0 +1,67 @@
+//------------------------------------------------
+//--- 010 Editor v13.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+local int Total;
+local int Low = 90000;//high enough even max short will be less
+local int High = 0;
+typedef struct{
+    byte unkn; //I think this is a datatype, since it's only ever 1 on floats
+    int data;
+}Int5;
+
+string ReadInt5(Int5 &i){
+    string s;
+    SPrintf(s, "%i", i.data);
+    return s;
+}
+
+typedef struct{
+    Int5 Index<read=ReadInt5>;//might be a proper mon num? since var_tex goes all of the way to 218
+    Int5 Unkn<read=ReadInt5>;
+    Int5 BaseHP<read=ReadInt5>;
+    Int5 BasePow<read=ReadInt5>;
+    Int5 BaseInt<read=ReadInt5>;
+    Int5 BaseSkl<read=ReadInt5>;
+    Int5 BaseSpd<read=ReadInt5>;
+    Int5 BaseDef<read=ReadInt5>;
+    Int5 HPGain<read=ReadInt5>;
+    Int5 PowGain<read=ReadInt5>;
+    Int5 IntGain<read=ReadInt5>;
+    Int5 SklGain<read=ReadInt5>;
+    Int5 SpdGain<read=ReadInt5>;
+    Int5 DefGain<read=ReadInt5>;
+    byte unkn;
+    float MoveSpd;
+    byte unkn;
+    float GutsRcvr;
+    Int5 Unkn<read=ReadInt5>;
+    Int5 Lifespan<read=ReadInt5>;
+    Printf("%i\n", Lifespan.data);
+    if(Lifespan.data != 65535){
+        Total++;
+        if(Lifespan.data < Low){
+            Low = Lifespan.data;
+        };
+        if(Lifespan.data > High){
+            High = Lifespan.data;
+        };
+    };
+
+    Int5 unkns[19]<read=ReadInt5>;
+}DataStruct;
+
+int dataNum;
+
+DataStruct data[dataNum]<optimize=false>;
+Printf("Total:%i\n", Total);
+Printf("Low:%i\n", Low);
+Printf("High:%i\n", High);

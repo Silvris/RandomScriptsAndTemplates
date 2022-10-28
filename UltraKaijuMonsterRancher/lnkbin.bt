@@ -1,0 +1,28 @@
+//------------------------------------------------
+//--- 010 Editor v13.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+local int i;
+typedef struct{
+    int offset;
+    int size;
+}FileIndex;
+
+typedef struct(int size){
+    byte data[size];
+}File;
+
+int fileNum;
+FileIndex files[fileNum];
+for(i=0;i<fileNum;i++){
+    FSeek(files[i].offset);
+    File file(files[i].size);
+};

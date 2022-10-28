@@ -1,0 +1,42 @@
+//------------------------------------------------
+//--- 010 Editor v13.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+local int Low = 90000;//high enough even max short will be less
+local int High = 0;
+typedef struct{
+    byte unkn; //I think this is a datatype, since it's only ever 1 on floats
+    int data;
+}Int5;
+
+string ReadInt5(Int5 &i){
+    string s;
+    SPrintf(s, "%i", i.data);
+    return s;
+}
+
+typedef struct{
+    Int5 nameHash<read=ReadInt5>;
+    Int5 DescriptionHash<read=ReadInt5>;
+    Int5 EffectIndex<read=ReadInt5>;
+    Int5 Unkn2<read=ReadInt5>;
+    Int5 BuyPrice<read=ReadInt5>;
+    Int5 SalePrice<read=ReadInt5>;
+    Int5 SellPrice<read=ReadInt5>;
+    Int5 Unkn[5]<read=ReadInt5>;
+    if(Unkn2.data == 7) High++;
+    if(Unkn2.data < 0) Printf("High:%i\n", Unkn2.data);;
+}DataStruct;
+
+int dataNum;
+
+DataStruct data[dataNum]<optimize=false>;
+Printf("Low:%i\n", High);

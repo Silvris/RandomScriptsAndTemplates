@@ -1,0 +1,44 @@
+//------------------------------------------------
+//--- 010 Editor v12.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+typedef struct{
+    char magic[3];
+    byte platform;
+    byte version;
+    byte flags;
+    local byte compressed = (flags & 0x80);
+    int length;
+    byte unkn; //flag maybe?
+    byte readerNameLen;
+    char readerName[readerNameLen];
+    byte nullTerm;
+}XnbHeader;
+
+typedef struct{
+    byte unkn[5];//potentially alignment (at least partially)
+    int surfaceFormat;
+    int width;
+    int height;
+    int levelCount;
+    local int level;
+    for(level=0; level < levelCount; level++){
+        int levelDataSizeInBytes;
+        local int levelWidth = width >> level;
+        local int levelHeight = height >> level;
+        byte levelData[levelDataSizeInBytes];
+    };
+}Texture2D;
+
+XnbHeader header;
+if(header.readerName == "Microsoft.Xna.Framework.Content.Texture2DReader"){
+    Texture2D texture2d;
+};
