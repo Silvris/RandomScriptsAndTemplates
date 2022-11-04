@@ -1,0 +1,52 @@
+//------------------------------------------------
+//--- 010 Editor v13.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+
+typedef struct{
+    byte unkn; //I think this is a datatype, since it's only ever 1 on floats
+    int data;
+}Int5;
+
+string ReadInt5(Int5 &i){
+    string s;
+    SPrintf(s, "%i", i.data);
+    return s;
+}
+
+typedef struct{
+    byte unkn; //I think this is a datatype, since it's only ever 1 on floats
+    float data;
+}Float5;
+
+string ReadFloat5(Float5 &i){
+    string s;
+    SPrintf(s, "%f", i.data);
+    return s;
+}
+
+typedef struct{
+    Int5 NameHash<read=ReadInt5>;
+    Int5 unkn1<read=ReadInt5>;
+    Int5 unkn2<read=ReadInt5>;
+    Int5 unkn3<read=ReadInt5>;
+    Int5 unkn4<read=ReadInt5>;
+    Int5 unkn5<read=ReadInt5>;
+    Int5 unkn6<read=ReadInt5>;
+    Int5 unkn7<read=ReadInt5>;
+    Int5 unkn8<read=ReadInt5>;
+    Float5 unkn9<read=ReadFloat5>;
+    Int5 unkn10<read=ReadInt5>;
+}DataStruct;
+
+int dataNum;
+
+DataStruct data[dataNum]<optimize=false>;
