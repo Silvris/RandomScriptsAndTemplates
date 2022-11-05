@@ -13,13 +13,13 @@
 typedef struct{
     ushort xPos;
     ushort yPos;
-    ushort size;
+    ushort width;
 }Character;
 
 typedef struct{
-    ushort unkn1;
+    ushort height;//height used for every character defined within this FIF
     ushort characterCount;
-    ushort unkn2;
+    ushort nullTerminator;//character used to end strings
     short unknFF[137];
 }Header;
 

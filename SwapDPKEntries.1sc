@@ -1,0 +1,40 @@
+//------------------------------------------------
+//--- 010 Editor v12.0.1 Script File
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+//   History: 
+//------------------------------------------------
+void SwapDPKEntries(int index1, int index2){
+    //set index1 values to local values
+    local uint storeOff = File.files[index1].offset;
+    local uint storeComp = File.files[index1].compSize;
+    local uint storeDecomp = File.files[index1].decompSize;
+    File.files[index1].offset = File.files[index2].offset;
+    File.files[index1].compSize = File.files[index2].compSize;
+    File.files[index1].decompSize = File.files[index2].decompSize;
+    File.files[index2].offset = storeOff;
+    File.files[index2].compSize = storeComp;
+    File.files[index2].decompSize = storeDecomp;
+};
+SwapDPKEntries(2359,2271);//FONT_BATTLE
+SwapDPKEntries(5,897);//EVM01
+SwapDPKEntries(259, 998);//EVM0200
+SwapDPKEntries(260, 999);//EVM0201
+SwapDPKEntries(14, 900); //EVM03
+SwapDPKEntries(19, 902); //EVM04
+SwapDPKEntries(24, 904); //EVM05
+SwapDPKEntries(29, 907); //EVM06
+SwapDPKEntries(34, 911); //EVM07
+SwapDPKEntries(39, 914); //EVM08
+SwapDPKEntries(44, 917); //EVM09
+SwapDPKEntries(1023,262);//EVM0A00
+SwapDPKEntries(263,1032);//EVM0A01
+SwapDPKEntries(52,928); //EVM0B
+SwapDPKEntries(56,930); //EVM0C
+SwapDPKEntries(60, 932); //EVM0D
+SwapDPKEntries(63, 933); //EVM0E
+SwapDPKEntries(66, 934); //EVM0F

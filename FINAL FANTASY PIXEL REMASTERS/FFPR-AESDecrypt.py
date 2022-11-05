@@ -25,15 +25,14 @@ cipher = RijndaelCbc(key,iv,ZeroPadding(32),32)
 
 def inflate(data):
     decompress = zlib.decompressobj(
-            -15  # see above
+            -zlib.MAX_WBITS  # see above
     )
     inflated = decompress.decompress(data)
-    inflated += decompress.flush()
     return inflated
 
 def deobfuscateFile(inFile):
     buffer = inFile.read()
-    buffer = buffer[3:-2]
+    buffer = buffer[3:]
     while (len(buffer) % 4) != 0:
         buffer += '='
     #print(buffer[0])
@@ -48,7 +47,7 @@ def deobfuscateFile(inFile):
         outFile = open(os.path.dirname(inFile.name)+"/"+filenames[os.path.basename(inFile.name).encode('utf-8')],'wb')
     else:
         outFile = open(inFile.name+".dec",'wb')
-    print(outFile.name)
+    #print(finalFile)
     outFile.write(finalFile)
 
 

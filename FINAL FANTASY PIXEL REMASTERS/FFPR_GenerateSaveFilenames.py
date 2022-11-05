@@ -1,6 +1,7 @@
 import base64
 from hashlib import sha256
 import sys
+import os
 def GenerateFilename(filename):
     print(filename)
     hashval = sha256(filename.encode('utf-8'))
@@ -9,7 +10,7 @@ def GenerateFilename(filename):
     print(encname)
     return encname
 
-def GenerateFilenames():
+def GenerateFilenames(lockTo30 = False):
     filenames = list()
     for i in range(99):
         #unknown if it actually goes to 99, easier to just prepare in case
@@ -34,3 +35,10 @@ if __name__ == "__main__":
         for i, arg in enumerate(sys.argv):
             if i > 0:
                 GenerateFilename(arg)
+    else:
+        os.chdir(os.path.dirname(sys.argv[0]))
+        outfile = open("FFPR-SaveFileNames.txt",'w')
+        filenames = GenerateFilenames(True)
+        for file in list(filenames.keys()):
+            outfile.write("{}:\t{}\n".format(filenames[file],file.decode('utf-8')))
+        outfile.close()

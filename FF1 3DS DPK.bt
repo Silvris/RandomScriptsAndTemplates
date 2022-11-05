@@ -1,0 +1,32 @@
+//------------------------------------------------
+//--- 010 Editor v12.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+typedef struct{
+    char name[22];
+    short namesum;
+    uint offset;
+    uint compSize;
+    uint decompSize;
+    while((FTell() % 0x80) != 0){
+        byte padding<hidden=true>;
+    };
+}DpkEntry;
+
+struct DpkFile{
+    uint fileCount;
+    uint fileSize;
+    while((FTell() % 0x80) != 0){
+        byte padding<hidden=true>;
+    };
+    DpkEntry files[fileCount];
+}File;
+    

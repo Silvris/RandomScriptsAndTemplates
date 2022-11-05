@@ -1,6 +1,43 @@
 import csv
 import os
 import sys
+from enum import IntFlag, IntEnum, auto
+class MonsterFlagType(IntFlag):
+        NoFlags = auto()
+        ResistLibra = auto()
+        Undead = auto()
+        IsFrontDrawing = auto()
+        UnableMP = auto()
+        SafeFF5 = auto()
+        EarthFF2 = auto()
+        FlightFF2 = auto()
+        WaterFF2 = auto()
+        HPAbsFF2 = auto()
+        MPAbsFF2 = auto()
+        Manipulate = auto()
+        Capture = auto()
+        ResistLibraHideHp = auto()
+        ResistWeakMakerAll = auto()
+        ResistWeakMakerThunder = auto()
+        NoEnemyDead = auto()
+        EnemyHP1 = auto()
+        NoView = auto()
+        NoReaction = auto()
+
+class MonsterFlagGroup(IntEnum):
+    Group0 = MonsterFlagType.NoFlags
+    Group1 = MonsterFlagType.Undead
+    Group2 = MonsterFlagType.Manipulate
+    Group3 = MonsterFlagType.SafeFF5
+    Group4 = MonsterFlagType.Undead | MonsterFlagType.SafeFF5
+    Group5 = MonsterFlagType.SafeFF5 | MonsterFlagType.EnemyHP1
+    Group6 = MonsterFlagType.SafeFF5 | MonsterFlagType.EnemyHP1 | MonsterFlagType.NoView
+    Group7 = MonsterFlagType.SafeFF5 | MonsterFlagType.EnemyHP1 | MonsterFlagType.NoView
+    Group8 = MonsterFlagType.SafeFF5 | MonsterFlagType.NoReaction
+    Group9 = MonsterFlagType.EnemyHP1
+    Group10 = MonsterFlagType.NoView
+    Group11 = MonsterFlagType.SafeFF5 | MonsterFlagType.NoView
+    Group12 = MonsterFlagType.EnemyHP1 | MonsterFlagType.NoView
 
 class Monster:
     #all of the values we'd want from the monster csv
@@ -86,7 +123,8 @@ for monster in monsters:
         outdata.write("BOSS\n")
     else:
         outdata.write("Monster\n")
-    outdata.write("Group:{}\n".format(monster.group))
+    flags = MonsterFlagType(MonsterFlagGroup["Group{}".format(monster.group)]).name
+    outdata.write("Flags:{}\n".format(flags))
     outdata.write("Level:{}\n".format(monster.lvl))
     outdata.write("HP:{}\n".format(monster.hp))
     outdata.write("MP:{}\n".format(monster.mp))

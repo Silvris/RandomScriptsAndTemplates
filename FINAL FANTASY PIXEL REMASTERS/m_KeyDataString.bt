@@ -11,13 +11,15 @@
 //   History: 
 //------------------------------------------------
 typedef struct{
-    uint size;
-    char data[size];
-    if(ReadByte() == 0x0){
-        byte nullterm;
+    byte unkn;
+    if(unkn ==0){
+        uint size;
+        char name[size];
+    }
+    else if (unkn == 4){
+        uint data;
     };
 }StringData;
 
 uint stringCount;
-byte padding;
 StringData strings[stringCount]<optimize=false>;
