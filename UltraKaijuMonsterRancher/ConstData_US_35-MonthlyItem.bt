@@ -1,0 +1,49 @@
+//------------------------------------------------
+//--- 010 Editor v13.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+typedef struct{
+    byte unkn; //I think this is a datatype, since it's only ever 1 on floats
+    int data;
+}Int5;
+
+string ReadInt5(Int5 &i){
+    string s;
+    SPrintf(s, "%i", i.data);
+    return s;
+}
+
+typedef struct{
+    Int5 Index<read=ReadInt5>;
+    Int5 StartMonth<read=ReadInt5>;
+    Int5 EndMonth<read=ReadInt5>;
+    Int5 Unkn9<read=ReadInt5>;
+    Int5 Unkn10<read=ReadInt5>; //PercentLifespan?
+    Int5 Dependency<read=ReadInt5>;
+    Int5 PercentDependency<read=ReadInt5>;
+    Int5 Fear<read=ReadInt5>;
+    Int5 PercentFear<read=ReadInt5>;
+    Int5 Unkn7<read=ReadInt5>;
+    Int5 Unkn8<read=ReadInt5>;
+    Int5 Fatigue<read=ReadInt5>;
+    Int5 PercentFatigue<read=ReadInt5>;
+    Int5 Stress<read=ReadInt5>;
+    Int5 PercentStress<read=ReadInt5>;//almost definitely stress
+    Int5 Weight<read=ReadInt5>;
+    Int5 PercentWeight<read=ReadInt5>;
+    Int5 Anger<read=ReadInt5>;
+    Int5 PercentAnger<read=ReadInt5>;//seems to be a multiplier on this
+    Int5 Unkns[10]<read=ReadInt5>;
+}DataStruct;
+
+int dataNum;
+
+DataStruct data[dataNum]<optimize=false>;

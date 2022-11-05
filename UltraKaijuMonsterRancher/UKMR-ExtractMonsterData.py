@@ -1,3 +1,4 @@
+from re import T
 import struct
 import os
 import csv
@@ -15,39 +16,42 @@ def readUInt(file):
 def readFloat(file):
     return struct.unpack("f",file.read(4))[0]
 
-DataName = [
-    "Index",
-    "Variation",
-    "BaseLif",
-    "BasePow",
-    "BaseInt",
-    "BaseSki",
-    "BaseSpd",
-    "BaseDef",
-    "LifGain",
-    "PowGain",
-    "IntGain",
-    "SkiGain",
-    "SpdGain",
-    "DefGain",
-    "ForwardMov",
-    "BackwardsMov",
-    "GutsRcvr",
-    "Lifespan"
-]
-for i in range(3,22):
-    DataName.append("Unkn{}".format(i))
+#on further realization, why the hell does this work
+#python, why are you maintaining order in a dict?
 
-MainSubName  = [
-    "Index",
-    "Name",
-    "Unkn1",
-    "Unkn2",
-    "LifeType"
-]
+DataName = {
+    "Index":True,
+    "Variation":True,
+    "BaseLif":True,
+    "BasePow":True,
+    "BaseInt":True,
+    "BaseSki":True,
+    "BaseSpd":True,
+    "BaseDef":True,
+    "LifGain":True,
+    "PowGain":True,
+    "IntGain":True,
+    "SkiGain":True,
+    "SpdGain":True,
+    "DefGain":True,
+    "ForwardMov":False,
+    "BackwardsMov":False,
+    "GutsRcvr":True,
+    "Lifespan":True
+}
+for i in range(3,22):
+    DataName["Unkn{}".format(i)] = True
+
+MainSubName  = {
+    "Index":True,
+    "Name":False,
+    "Unkn1":True,
+    "Unkn2":True,
+    "LifeType":True
+}
 
 for i in range(3,22):
-    MainSubName.append("Unkn{}".format(i))
+    MainSubName["Unkn{}".format(i)] = True
 
 TechName = {
     "Index":True,
@@ -64,20 +68,20 @@ TechName = {
     "Unkn4":True
 }
 
-TechLearningName = [
-    "Index",
-    "MainBreed",
-    "SpecificMainSub",
-    "ExcludeMainSub",
-    "Unkn1",
-    "TechIndex",
-    "Unkn2",
-    "Unkn3",
-    "RequiredStat",
-    "RequiredNumerical",
-    "Unkn4",
-    "Unkn5"
-]
+TechLearningName = {
+    "Index":True,
+    "MainBreed":True,
+    "SpecificMainSub":True,
+    "ExcludeMainSub":True,
+    "Unkn1":True,
+    "TechIndex":True,
+    "Unkn2":True,
+    "Unkn3":True,
+    "RequiredStat":True,
+    "RequiredNumerical":True,
+    "Unkn4":True,
+    "Unkn5":True
+}
 
 ItemName = {
     "Index":False,
@@ -95,50 +99,141 @@ ItemName = {
     "Unkn5":False
 }
 
-ConsumableName = [
-    "Index",
-    "Unkn1",
-    "Unkn2",
-    "Unkn3",
-    "Unkn4",
-    "Unkn5",
-    "Unkn6",
-    "Unkn7",
-    "Unkn8",
-    "Unkn9",
-    "Unkn10",
-    "Unkn11",
-    "Unkn12",
-    "Unkn13",
-    "Unkn14",
-    "Unkn15",
-    "Lifespan",
-    "Unkn16", #percent lifespan?
-    "Dependency",
-    "PercentDependency",
-    "Fear",
-    "PercentFear",
-    "Unkn19",
-    "Unkn20",
-    "Fatigue",
-    "PercentFatigue",
-    "Stress",
-    "PercentStress", #Stress
-    "Weight",
-    "PercentWeight",
-    "Anger",
-    "PercentAnger",
-    "Life",
-    "Power",
-    "Intelligence",
-    "Skill",
-    "Speed",
-    "Defense",
-    "Unkn26"
-]
+ConsumableName = {
+    "Index":True,
+    "Unkn1":True,
+    "Unkn2":True,
+    "Unkn3":True,
+    "Unkn4":True,
+    "Unkn5":True,
+    "Unkn6":True,
+    "Unkn7":True,
+    "Unkn8":True,
+    "Unkn9":True,
+    "Unkn10":True,
+    "Unkn11":True,
+    "Unkn12":True,
+    "Unkn13":True,
+    "Unkn14":True,
+    "Unkn15":True,
+    "Lifespan":True,
+    "Unkn16":True, #percent lifespan?
+    "Dependency":True,
+    "PercentDependency":True,
+    "Fear":True,
+    "PercentFear":True,
+    "Unkn19":True,
+    "Unkn20":True,
+    "Fatigue":True,
+    "PercentFatigue":True,
+    "Stress":True,
+    "PercentStress":True, #Stress
+    "Weight":True,
+    "PercentWeight":True,
+    "Anger":True,
+    "PercentAnger":True,
+    "Life":True,
+    "Power":True,
+    "Intelligence":True,
+    "Skill":True,
+    "Speed":True,
+    "Defense":True,
+    "Unkn26":True
+}
+
+BaseFoodName = {
+    "ItemIndex":True,
+    "DescriptionHash":False,
+    "PurchasePrice":True,
+    "CanPurchase":True,
+    "FeastItem1":True,
+    "FeastItem1Num":True,
+    "FeastItem2":True,
+    "FeastItem2Num":True,
+    "FeastItem3":True,
+    "FeastItem3Num":True,
+    "Dependence":True,
+    "Fear":True,
+    "Unkn11":True,
+    "Weight":True,
+    "Unkn13":True,
+    "Unkn14":True
+}
+
+SpiceName = {
+    "ItemIndex":True,
+    "DescriptionHash":False,
+    "Fatigue":True,
+    "Unkn3":True,
+    "Anger":True,
+    "Unkn5":True
+}
+
+MealName = {
+    "Index":True,
+    "Name":False,
+    "BaseFood":True,
+    "Spice":True,
+    "Attribute1":True,
+    "Attribute2":True,
+    "Attribute3":True
+}
+
+MonthlyName = {
+    "ItemIndex":True,
+    "StartMonth":True,
+    "EndMonth":True,
+    "Unkn1":True,
+    "Unkn2":True,
+    "Dependency":True,
+    "PercentDependency":True,
+    "Fear":True,
+    "PercentFear":True,
+    "Unkn3":True,
+    "Unkn4":True,
+    "Fatigue":True,
+    "PercentFatigue":True,
+    "Stress":True,
+    "PercentStress":True, #Stress
+    "Weight":True,
+    "PercentWeight":True,
+    "Anger":True,
+    "PercentAnger":True,
+}
+
+PersonalityName = {
+    "Name":False,
+    "Unkn1":True,
+    "Unkn2":True,
+    "Unkn3":True,
+    "Unkn4":True,
+    "Unkn5":True,
+    "Unkn6":True,
+    "Unkn7":True,
+    "Unkn8":True,
+    "Unkn9":True,
+    "Unkn10":True
+}
+
+TrainerName = {
+    "Name":False,
+    "Description":False,
+    "Price":True,
+    "Unkn1":True,
+    "PreferredStat":True,
+    "Unkn2":True,
+    "Index":True,
+    "Unkn3":True,
+    "Unkn4":True,
+    "Unkn5":True,
+    "Unkn6":True
+}
 
 for i in range(4,22):
     TechName["Unkn{}".format(i)] = True
+
+for i in range(5,15):
+    MonthlyName["Unkn{}".format(i)] = True
 
 def GenerateRemap():
     p2 = csv.DictReader(open("NameRemapP2.csv",'r',newline=''))
@@ -208,67 +303,6 @@ def ReadItemRemapData(f):
                     return items
         items[item["EffectIndex"]] = item["RemappedIndex"]
     return items
-
-def ReadConsumableData(f):
-    items = list()
-    itemNum = readInt(f)
-    for i in range(itemNum):
-        item = dict()
-        for field in ConsumableName:
-                datatype = f.read(1)
-                #branch on known datatypes
-                #print(datatype)
-                if datatype == b"\x00":
-                    item[field] = readInt(f)
-                elif datatype == b"\x01":
-                    item[field] = round(readFloat(f),1)
-                else:
-                    return items
-        items.append(item)
-    return items
-
-def ReadTechLearningData(f):
-    techs = list()
-    techNum = readInt(f)
-    for i in range(techNum):
-        tech = dict()
-        tech["Index"] = i
-        for field in TechLearningName:
-            if field != "Index":
-                datatype = f.read(1)
-                #branch on known datatypes
-                #print(datatype)
-                if datatype == b"\x00":
-                    tech[field] = readInt(f)
-                elif datatype == b"\x01":
-                    tech[field] = round(readFloat(f),1)
-                else:
-                    return techs
-        techs.append(tech)
-    return techs
-
-def ReadTechData(f):
-    techs = list()
-    techNum = readInt(f)
-    for i in range(techNum):
-        tech = dict()
-        tech["Index"] = i
-        for field in TechName:
-            if field != "Index":
-                datatype = f.read(1)
-                #branch on known datatypes
-                #print(datatype)
-                if datatype == b"\x00":
-                    if TechName[field] == True:
-                        tech[field] = readInt(f)
-                    else:
-                        tech[field] = readUInt(f)
-                elif datatype == b"\x01":
-                    tech[field] = round(readFloat(f),1)
-                else:
-                    return techs
-        techs.append(tech)
-    return techs
 
 def ReadJPNames(strFile, intFile):
     names = list()
@@ -360,49 +394,31 @@ def ReadENNames(strFile, intFile):
         })
     return names
 
-
-def ReadMonsterBreedData(f):
-    monsters = list()
-    monsterDataNum = readInt(f)
-    for i in range(monsterDataNum):
-        monster = dict()
-        monster["Index"] = i
-        for field in MainSubName:
-            if field != "Index":
+def ReadGenericData(f,names,IncludeInd = True):
+    vals = list()
+    valNum = readInt(f)
+    for i in range(valNum):
+        val = dict()
+        if IncludeInd:
+            val["Index"] = i
+        for field in names:
+            if field == "Index" and IncludeInd:
+                continue
+            else:
                 datatype = f.read(1)
                 #branch on known datatypes
                 #print(datatype)
                 if datatype == b"\x00":
-                    monster[field] = readUInt(f)
-                    if monster[field] == 0xFFFFFFFF:
-                        monster[field] = -1
+                    if names[field] == True:
+                        val[field] = readInt(f)
+                    else:
+                        val[field] = readUInt(f)
                 elif datatype == b"\x01":
-                    monster[field] = round(readFloat(f),1)
+                    val[field] = round(readFloat(f),1)
                 else:
-                    return monsters
-        #now remap index
-        #print(monster["Name"])
-        monsters.append(monster)
-    return monsters
-
-
-def ReadMonsterData(f):
-    monsters = list()
-    monsterDataNum = readInt(f)
-    for i in range(monsterDataNum):
-        monster = dict()
-        for field in DataName:
-            datatype = f.read(1)
-            #branch on known datatypes
-            #print(datatype)
-            if datatype == b"\x00":
-                monster[field] = readInt(f)
-            elif datatype == b"\x01":
-                monster[field] = round(readFloat(f),1)
-            else:
-                return monsters
-        monsters.append(monster)
-    return monsters
+                    return vals
+        vals.append(val)
+    return vals
 
 def WriteData(f, monsters):
     for monster in monsters:
@@ -410,8 +426,77 @@ def WriteData(f, monsters):
 
 
 def MainFunction():
-    #remap = GenerateRemap()
-    #print(remap)
+
+    trainerStrFile = open(r"I:\UKMR\RomFS\string\UIString_EN-decomp\51.bin",'rb')
+    trainerIntFile = open(r"I:\UKMR\RomFS\binary\UIStringExData-decomp\51.bin",'rb')
+    trainernames = ReadENNames(trainerStrFile,trainerIntFile)
+    trainernamescsv = csv.DictWriter(open("UKMR-TrainerNames.csv",'w',newline=''),["Key","Value"])
+    trainernamescsv.writeheader()
+    WriteData(trainernamescsv,trainernames)
+
+    trainerFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\50.bin",'rb')
+    trainer = ReadGenericData(trainerFile,TrainerName,False)
+    trainercsv = csv.DictWriter(open("UKMR-TrainerData.csv",'w',newline=''),TrainerName)
+    trainercsv.writeheader()
+    WriteData(trainercsv,trainer)
+
+    persStrFile = open(r"I:\UKMR\RomFS\string\UIString_EN-decomp\17.bin",'rb')
+    persIntFile = open(r"I:\UKMR\RomFS\binary\UIStringExData-decomp\17.bin",'rb')
+    persnames = ReadENNames(persStrFile,persIntFile)
+    persnamescsv = csv.DictWriter(open("UKMR-PersonalityNames.csv",'w',newline=''),["Key","Value"])
+    persnamescsv.writeheader()
+    WriteData(persnamescsv,persnames)
+
+    persJPStrFile = open(r"I:\UKMR\RomFS\string\UIString_Jp\17.bin",'rb')
+    persJPIntFile = open(r"I:\UKMR\RomFS\binary\UIStringExData-decomp\17.bin",'rb')
+    persJPnames = ReadJPNames(persJPStrFile,persJPIntFile)
+    persJPnamescsv = csv.DictWriter(open("UKMR-PersonalityJPNames.csv",'w',encoding="utf-8",newline=''),["Key","Value"])
+    persJPnamescsv.writeheader()
+    WriteData(persJPnamescsv,persJPnames)
+
+    personalityFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\8.bin",'rb')
+    personality = ReadGenericData(personalityFile,PersonalityName,False)
+    personalitycsv = csv.DictWriter(open("UKMR-PersonalityData.csv",'w',newline=''),PersonalityName)
+    personalitycsv.writeheader()
+    WriteData(personalitycsv,personality)
+
+    monthlyItemFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\35.bin",'rb')
+    monthlyItem = ReadGenericData(monthlyItemFile,MonthlyName,False)
+    monthlyItemcsv = csv.DictWriter(open("UKMR-MonthlyItemData.csv",'w',newline=''),MonthlyName)
+    monthlyItemcsv.writeheader()
+    WriteData(monthlyItemcsv,monthlyItem)
+
+    baseFoodFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\37.bin",'rb')
+    baseFoods = ReadGenericData(baseFoodFile,BaseFoodName,False)
+    baseFoodcsv = csv.DictWriter(open("UKMR-BaseFoodData.csv",'w',newline=''),BaseFoodName)
+    baseFoodcsv.writeheader()
+    WriteData(baseFoodcsv,baseFoods)
+
+    spiceFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\38.bin",'rb')
+    spices = ReadGenericData(spiceFile,SpiceName,False)
+    spicecsv = csv.DictWriter(open("UKMR-SpiceData.csv",'w',newline=''),SpiceName)
+    spicecsv.writeheader()
+    WriteData(spicecsv,spices)
+
+    mealStrFile = open(r"I:\UKMR\RomFS\string\UIString_EN-decomp\47.bin",'rb')
+    mealIntFile = open(r"I:\UKMR\RomFS\binary\UIStringExData-decomp\47.bin",'rb')
+    mealnames = ReadENNames(mealStrFile,mealIntFile)
+    mealnamescsv = csv.DictWriter(open("UKMR-MealNames.csv",'w',newline=''),["Key","Value"])
+    mealnamescsv.writeheader()
+    WriteData(mealnamescsv,mealnames)
+
+    mealAttrStrFile = open(r"I:\UKMR\RomFS\string\UIString_EN-decomp\48.bin",'rb')
+    mealAttrIntFile = open(r"I:\UKMR\RomFS\binary\UIStringExData-decomp\48.bin",'rb')
+    mealAttrnames = ReadENNames(mealAttrStrFile,mealAttrIntFile)
+    mealAttrnamescsv = csv.DictWriter(open("UKMR-MealAttrNames.csv",'w',newline=''),["Key","Value"])
+    mealAttrnamescsv.writeheader()
+    WriteData(mealAttrnamescsv,mealAttrnames)
+
+    mealFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\39.bin",'rb')
+    meals = ReadGenericData(mealFile,MealName)
+    mealcsv = csv.DictWriter(open("UKMR-MealData.csv",'w',newline=''),MealName)
+    mealcsv.writeheader()
+    WriteData(mealcsv,meals)
 
     effectRemap = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\43.bin",'rb')
     itemremap = ReadItemRemapData(effectRemap)
@@ -422,7 +507,7 @@ def MainFunction():
     WriteData(itemscsv,items)
 
     consumableFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\34.bin",'rb')
-    consumables = ReadConsumableData(consumableFile)
+    consumables = ReadGenericData(consumableFile,ConsumableName)
     consumablecsv = csv.DictWriter(open("UKMR-ConsumableData.csv",'w',newline=''),ConsumableName)
     consumablecsv.writeheader()
     WriteData(consumablecsv,consumables)
@@ -441,14 +526,21 @@ def MainFunction():
     technamescsv.writeheader()
     WriteData(technamescsv,technames)
 
+    techJPStrFile = open(r"I:\UKMR\RomFS\string\UIString_Jp\23.bin",'rb')
+    techJPIntFile = open(r"I:\UKMR\RomFS\binary\UIStringExData-decomp\23.bin",'rb')
+    techJPnames = ReadJPNames(techJPStrFile,techJPIntFile)
+    techJPnamescsv = csv.DictWriter(open("UKMR-TechJPNames.csv",'w',encoding="utf-8",newline=''),["Key","Value"])
+    techJPnamescsv.writeheader()
+    WriteData(techJPnamescsv,techJPnames)
+
     techFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\12.bin",'rb')
-    techs = ReadTechData(techFile)
+    techs = ReadGenericData(techFile,TechName)
     techscsv = csv.DictWriter(open("UKMR-TechData.csv",'w',newline=''),TechName)
     techscsv.writeheader()
     WriteData(techscsv,techs)
 
     techLearnFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\13.bin",'rb')
-    techlearn = ReadTechLearningData(techLearnFile)
+    techlearn = ReadGenericData(techLearnFile,TechLearningName)
     techlearncsv = csv.DictWriter(open("UKMR-TechLearningData.csv",'w',newline=''),TechLearningName)
     techlearncsv.writeheader()
     WriteData(techlearncsv,techlearn)
@@ -468,13 +560,13 @@ def MainFunction():
     WriteData(monsterJPnamescsv,monsterJPnames)
 
     breedData = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\3.bin",'rb')
-    mainsub = ReadMonsterBreedData(breedData)
+    mainsub = ReadGenericData(breedData,MainSubName)
     mainsubcsv = csv.DictWriter(open("UKMR-MainSub.csv",'w',newline=''),MainSubName)
     mainsubcsv.writeheader()
     WriteData(mainsubcsv,mainsub)
 
     data = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\2.bin",'rb')
-    monsters = ReadMonsterData(data)
+    monsters = ReadGenericData(data,DataName)
     csvFile = csv.DictWriter(open("UKMR-Monsters.csv",'w',newline=''),DataName)
     csvFile.writeheader()
     WriteData(csvFile,monsters)
