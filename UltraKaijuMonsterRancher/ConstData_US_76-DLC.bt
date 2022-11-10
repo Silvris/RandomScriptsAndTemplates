@@ -1,0 +1,32 @@
+//------------------------------------------------
+//--- 010 Editor v12.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+//no clue if this is DLC, but I'm going off of context clues
+typedef struct{
+    byte unkn; //I think this is a datatype, since it's only ever 1 on floats
+    int data;
+}Int5;
+
+string ReadInt5(Int5 &i){
+    string s;
+    SPrintf(s, "%i", i.data);
+    return s;
+}
+
+typedef struct{
+    Int5 mainSubIndex<read=ReadInt5>;
+    Int5 nameHash<read=ReadInt5>;
+    Int5 data[4]<read=ReadInt5>;
+}Data;
+
+uint num;
+Data dat[num]<optimize=false>;

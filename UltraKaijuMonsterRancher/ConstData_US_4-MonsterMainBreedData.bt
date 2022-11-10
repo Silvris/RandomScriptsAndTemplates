@@ -1,0 +1,31 @@
+//------------------------------------------------
+//--- 010 Editor v13.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+//despite the fact I named this "Visual Data", this is actually main/sub monster data, irregardless of variants
+typedef struct{
+    byte unkn; //I think this is a datatype, since it's only ever 1 on floats
+    int data;
+}Int5;
+
+string ReadInt5(Int5 &i){
+    string s;
+    SPrintf(s, "%i", i.data);
+    return s;
+}
+
+typedef struct{
+    Int5 nameHash;
+    Int5 data[8]<read=ReadInt5>;
+}Data;
+
+uint num;
+Data dat[num]<optimize=false>;

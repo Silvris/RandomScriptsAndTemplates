@@ -1,0 +1,29 @@
+//------------------------------------------------
+//--- 010 Editor v12.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+local int min = 9000;
+local int max = 0;
+typedef struct{
+    uint index;
+    uint unkn1;
+    short unkn2;
+    short unkn3;
+    if(unkn2 < min && unkn2 != -1) min = unkn2;
+    if(unkn2 > max) max = unkn2;
+    if(unkn2 == 452) Printf("%i\n",index);
+}DBEntry;
+
+while(FTell() < FileSize()){
+    DBEntry db;
+};
+Printf("Min:%i\n",min);
+Printf("Max:%i\n",max);

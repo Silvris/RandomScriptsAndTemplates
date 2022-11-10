@@ -1,0 +1,30 @@
+//------------------------------------------------
+//--- 010 Editor v13.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+typedef struct{
+    byte unkn;
+    int data;
+}Int5;
+
+string ReadInt5(Int5 &i){
+    string s;
+    SPrintf(s, "%i", i.data);
+    return s;
+}
+
+typedef struct{
+    Int5 Unkns[8]<read=ReadInt5>;
+}DataStruct;
+
+int dataNum;
+
+DataStruct data[dataNum]<optimize=false>;

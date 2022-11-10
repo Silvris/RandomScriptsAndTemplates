@@ -40,7 +40,7 @@ def readFile(f):
     nFile.close()
 
 if __name__ == "__main__":
-    for path in Path(r"I:UKMR").rglob("*.gz"):
+    for path in Path(r"D:/UKMR/JPRomFS").rglob("*.gz"):
         print(path)
         if os.path.getsize(path) > 0:
             try:
