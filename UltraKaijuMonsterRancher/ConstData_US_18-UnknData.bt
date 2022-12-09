@@ -1,0 +1,64 @@
+//------------------------------------------------
+//--- 010 Editor v13.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+typedef struct{
+    byte unkn; //I think this is a datatype, since it's only ever 1 on floats
+    int data;
+}Int5;
+
+typedef struct{
+    byte unkn; //I think this is a datatype, since it's only ever 1 on floats
+    float data;
+}Float5;
+
+
+string ReadInt5(Int5 &i){
+    string s;
+    SPrintf(s, "%i", i.data);
+    return s;
+}
+
+string ReadFloat5(Float5 &i){
+    string s;
+    SPrintf(s, "%f", i.data);
+    return s;
+}
+
+typedef struct{
+    Int5 Index<read=ReadInt5>;
+    Int5 Unkn1<read=ReadInt5>;
+    Int5 Unkn2<read=ReadInt5>;
+    Int5 Unkn3<read=ReadInt5>;
+    Int5 Unkn4<read=ReadInt5>;
+    Int5 Unkn5<read=ReadInt5>;
+    Int5 Unkn6<read=ReadInt5>;
+    Int5 Unkn7<read=ReadInt5>;
+    Int5 Unkn8<read=ReadInt5>;
+    Int5 Unkn9<read=ReadInt5>;
+    Int5 Unkn10<read=ReadInt5>;
+    Int5 Unkn11<read=ReadInt5>;
+    Int5 Unkn12<read=ReadInt5>;
+    Int5 Unkn13<read=ReadInt5>;
+    Int5 Unkn14<read=ReadInt5>;
+    Float5 Unkn15<read=ReadFloat5>;
+    Int5 Unkn16<read=ReadInt5>;
+    Int5 Unkn17<read=ReadInt5>;
+    Int5 Unkn18<read=ReadInt5>;
+    Int5 Unkn19<read=ReadInt5>;
+    Int5 Unkn20<read=ReadInt5>;
+    Int5 Unkn21<read=ReadInt5>;
+    Float5 Unkn22<read=ReadFloat5>;
+}DataStruct;
+
+int dataNum;
+
+DataStruct data[dataNum]<optimize=false>;

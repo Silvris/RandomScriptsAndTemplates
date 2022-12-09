@@ -1,0 +1,115 @@
+//------------------------------------------------
+//--- 010 Editor v13.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+local int i;
+local int j;
+
+typedef struct(int modulo){
+    while((FTell() % modulo) > 0){
+        byte align<hidden=true>;
+    };
+}Align;
+
+typedef struct{
+    uint size;
+    char str[size];
+}CSString;
+
+typedef struct{
+            int unkn;
+        for(j=0; j < unkn; j++){
+            CSString s2;
+        };
+}UnknStringGroup;
+
+typedef struct{
+    CSString filename;
+    Align align(4);
+    int unkn1;
+    int unkn2;
+    if (unkn2 > 0){
+        int unknA;
+    };
+    int unkn3;
+    int unkn4;
+    int unkn5;
+    int filesize;
+    byte file[filesize];
+}File;
+
+typedef struct{
+    CSString filename;
+    Align align(4);
+    int unkn3;
+    int unkn4;
+    int unkn5;
+    int filesize;
+    byte file[filesize];
+    byte unkns[724];
+}FntFile;
+
+string ReadFile(File &f){
+    return f.filename.str;
+};
+
+string ReadFntFile(FntFile &f){
+    return f.filename.str;
+};
+
+typedef struct{
+    int num;
+    for(j=0;j<num;j++){
+        File file<read=ReadFile>;
+    };
+}FileGroup;
+
+typedef struct{
+    int num;
+    for(j=0;j<num;j++){
+        FntFile file<read=ReadFntFile>;
+    };
+}FntFileGroup;
+
+typedef struct{
+        CSString s1;
+        UnknStringGroup g1;
+}FilenameGroup;
+
+typedef struct{
+    int num;
+    for(i = 0; i < num; i++){
+        FilenameGroup f;
+    };
+}Filenames;
+
+typedef struct{
+    uint unkn1;
+    uint unkn2;
+    uint unkn3;
+    uint unkn4;
+    uint unkn5;
+    uint unkn6;
+    uint FileSize;
+    uint unkn8;
+    uint unkn9;
+    uint unkn10;
+    uint unkn11;
+    uint unkn12;
+    uint unkn13;
+    uint unkn14;
+    uint unkn15;
+    Filenames filenames;
+}Header;
+
+Header header;
+FileGroup ttfs;
+FntFileGroup fnts;

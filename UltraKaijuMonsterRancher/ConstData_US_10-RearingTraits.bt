@@ -1,0 +1,50 @@
+//------------------------------------------------
+//--- 010 Editor v13.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+typedef struct{
+    byte unkn; //I think this is a datatype, since it's only ever 1 on floats
+    int data;
+}Int5;
+
+typedef struct{
+    byte unkn; //I think this is a datatype, since it's only ever 1 on floats
+    float data;
+}Float5;
+
+
+string ReadInt5(Int5 &i){
+    string s;
+    SPrintf(s, "%i", i.data);
+    return s;
+}
+
+string ReadFloat5(Float5 &i){
+    string s;
+    SPrintf(s, "%f", i.data);
+    return s;
+}
+
+typedef struct{
+    Int5 Description<read=ReadInt5>;
+    Int5 UnknString<read=ReadInt5>;
+    Int5 Action<read=ReadInt5>; //2 = drills, 3 = errantry, 6 - resting, 7 - territory battle
+    Int5 Stat<read=ReadInt5>; //LIF/POW/INT/SKL/SPD/DEF  14 - Fatigue, 15 - Weight, 16 - Anger
+    Int5 IsDecreasing<read=ReadInt5>; //0 = increasing, 1 = decreasing
+    Int5 ActiveValue<read=ReadInt5>;
+    Int5 BoostStat<read=ReadInt5>; //20 = LIF
+    Int5 BoostValue<read=ReadInt5>;
+    Int5 Unkn8<read=ReadInt5>;
+}DataStruct;
+
+int dataNum;
+
+DataStruct data[dataNum]<optimize=false>;

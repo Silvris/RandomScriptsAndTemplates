@@ -10,10 +10,8 @@
 //  ID Bytes: 
 //   History: 
 //------------------------------------------------
-local int unk1 = 0;
-local int unk2 = 0;
 typedef struct{
-    byte unkn;
+    byte unkn; //I think this is a datatype, since it's only ever 1 on floats
     int data;
 }Int5;
 
@@ -24,13 +22,16 @@ string ReadInt5(Int5 &i){
 }
 
 typedef struct{
+    Int5 Name<read=ReadInt5>;
     Int5 Index<read=ReadInt5>;
-    Int5 Unkns[2]<read=ReadInt5>;
-    if(Unkns[0].data < unk1 && Unkns[0].data != -1) unk1 = Unkns[0].data;
-    if(Unkns[1].data < unk2 && Unkns[1].data != -1) unk2 = Unkns[1].data;
+    Int5 Life<read=ReadInt5>;
+    Int5 Power<read=ReadInt5>;
+    Int5 Intelligence<read=ReadInt5>;
+    Int5 Skill<read=ReadInt5>;
+    Int5 Speed<read=ReadInt5>;
+    Int5 Defense<read=ReadInt5>;
 }DataStruct;
 
 int dataNum;
 
 DataStruct data[dataNum]<optimize=false>;
-Printf("%i %i", unk1, unk2);

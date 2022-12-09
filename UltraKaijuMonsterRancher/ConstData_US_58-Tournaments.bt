@@ -24,7 +24,43 @@ string ReadInt5(Int5 &i){
 typedef struct{
     Int5 Name<read=ReadInt5>;
     Int5 Description<read=ReadInt5>;
-    Int5 Unkns[37]<read=ReadInt5>;
+    Int5 Rank<read=ReadInt5>;
+    Int5 Month<read=ReadInt5>;
+    Int5 Week<read=ReadInt5>;
+    Int5 Unkn4<read=ReadInt5>;
+    Int5 Unkn5<read=ReadInt5>;
+    Int5 TournamentType<read=ReadInt5>;//0 - RR, 1 - SingleElim, 2 - Team Battle, 3 - Single Battle
+    Int5 Unkn7<read=ReadInt5>;
+    Int5 ParticipantNum<read=ReadInt5>;
+    Int5 Unkn9<read=ReadInt5>;//time?
+    Int5 Unkn10<read=ReadInt5>;//location
+    Int5 Unkn11<read=ReadInt5>;//fame?
+    Int5 RewardFirst<read=ReadInt5>;
+    Int5 RewardRepeat<read=ReadInt5>;
+    Int5 PrizeMoney<read=ReadInt5>;
+    Int5 Unkn15<read=ReadInt5>;
+    Int5 Unkn16<read=ReadInt5>;
+    Int5 Unkn17<read=ReadInt5>;
+    Int5 MinimumAge<read=ReadInt5>;
+    Int5 MaximumAge<read=ReadInt5>;
+    Int5 Unkn20<read=ReadInt5>;//player slot?
+    Int5 Opponent1<read=ReadInt5>;
+    Int5 Opponent2<read=ReadInt5>;
+    Int5 Opponent3<read=ReadInt5>;
+    Int5 Opponent4<read=ReadInt5>;
+    Int5 Opponent5<read=ReadInt5>;
+    Int5 Opponent6<read=ReadInt5>;
+    Int5 Opponent7<read=ReadInt5>;
+    Int5 Opponent8<read=ReadInt5>;
+    Int5 Opponent9<read=ReadInt5>;
+    Int5 Opponent10<read=ReadInt5>;
+    Int5 Opponent11<read=ReadInt5>;
+    Int5 Opponent12<read=ReadInt5>;
+    Int5 Rival1<read=ReadInt5>;//rival breeder?
+    Int5 Rival2<read=ReadInt5>;//rival monster?
+    Int5 Unkn35<read=ReadInt5>;
+    Int5 Unkn36<read=ReadInt5>;
+    Int5 Unkn37<read=ReadInt5>;
 }DataStruct;
 
 int dataNum;

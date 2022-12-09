@@ -263,11 +263,95 @@ FusionItemName = {
     "UnlockRequirement":True
 }
 
+UnknVariantName = {
+    "Index":True,
+    "Unkn1":True,
+    "Unkn2":True
+}
+
+DrillsName = {
+    "Name":False,
+    "Description":False,
+    "Unkn1":True,
+    "Unkn2":True,
+    "Unkn3":True,
+    "Unkn4":True,
+    "Unkn5":True,
+    "Unkn6":True,
+    "Unkn7":True,
+    "Unkn8":True,
+    "Unkn9":True,
+    "Unkn10":True,
+    "Unkn11":True,
+    "Unkn12":True,
+    "Unkn13":True,
+    "Unkn14":True,
+    "Unkn15":True,
+    "Unkn16":True,
+    "Unkn17":True,
+    "Unkn18":True,
+    "Unkn19":True,
+    "Unkn20":True,
+    "Unkn21":True,
+    "Unkn22":True,
+    "Unkn23":True
+}
+
+PersonalityGroupNames = {
+    "Index":False
+}
+
+TraitNames = {
+    "Index":False,
+    "TraitName":False,
+    "RearingTrait":True,
+    "BattleTrait":True,
+    "MonsterName":False,
+    "Unkn1":True,
+    "Unkn2":True
+}
+
+RearingNames = {
+    "Index":False,
+    "Description":False,
+    "UnknString":False,
+    "Action":True,
+    "Stat":True,
+    "Unkn1":True,
+    "ActiveValue":True,
+    "Unkn2":True,
+    "Unkn3":True,
+    "Unkn4":True
+}
+
+BattleNames = {
+    "Index":False,
+    "Description":False,
+    "UnknString":False,
+}
+
+CookieNames = {
+    "Name":False,
+    "Index":True,
+    "Life":True,
+    "Power":True,
+    "Intelligence":True,
+    "Skill":True,
+    "Speed":True,
+    "Defense":True
+}
+
 for i in range(4,22):
     TechName["Unkn{}".format(i)] = True
 
 for i in range(5,15):
     MonthlyName["Unkn{}".format(i)] = True
+
+for i in range(0,33):
+    PersonalityGroupNames["Unkn{}".format(i)] = True
+
+for i in range(2,26):
+    BattleNames["Unkn{}".format(i)] = True
 
 def GenerateRemap():
     p2 = csv.DictReader(open("NameRemapP2.csv",'r',newline=''))
@@ -424,7 +508,7 @@ def ReadENNames(strFile, intFile):
     for i in range(strCnt):
         names.append({
             "Key":ints[i],
-            "Value":strings[i]
+            "Value":strings[i].replace("\n"," ").replace("\r","")
         })
     return names
 
@@ -461,164 +545,259 @@ def WriteData(f, monsters):
 
 def MainFunction():
 
-    fusionItemFile = open(r"D:\UKMR\RomFS\binary\ConstData_US-decomp\36.bin",'rb')
+    traitsFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\9.bin",'rb')
+    traits = ReadGenericData(traitsFile,TraitNames,True)
+    traitscsv = csv.DictWriter(open("UKMR-TraitData.csv",'w',newline=''),TraitNames)
+    traitscsv.writeheader()
+    WriteData(traitscsv,traits)
+
+    rearingFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\10.bin",'rb')
+    rearing = ReadGenericData(rearingFile,RearingNames,True)
+    rearingcsv = csv.DictWriter(open("UKMR-RearingTraitData.csv",'w',newline=''),RearingNames)
+    rearingcsv.writeheader()
+    WriteData(rearingcsv,rearing)
+
+    battletraitsFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\11.bin",'rb')
+    battletraits = ReadGenericData(battletraitsFile,BattleNames,True)
+    battletraitscsv = csv.DictWriter(open("UKMR-BattleTraitData.csv",'w',newline=''),BattleNames)
+    battletraitscsv.writeheader()
+    WriteData(battletraitscsv,battletraits)
+
+    cookieFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\16.bin",'rb')
+    cookie = ReadGenericData(cookieFile,CookieNames,False)
+    cookiecsv = csv.DictWriter(open("UKMR-CookieData.csv",'w',newline=''),CookieNames)
+    cookiecsv.writeheader()
+    WriteData(cookiecsv,cookie)
+
+    traitsMStrFile = open(r"I:\UKMR\RomFS\string\UIString_EN-decomp\31.bin",'rb')
+    traitsMIntFile = open(r"I:\UKMR\RomFS\binary\UIStringExData-decomp\31.bin",'rb')
+    traitsMnames = ReadENNames(traitsMStrFile,traitsMIntFile)
+    traitsMnamescsv = csv.DictWriter(open("UKMR-TraitMonsterNames.csv",'w',newline='',encoding='utf-8'),["Key","Value"])
+    traitsMnamescsv.writeheader()
+    WriteData(traitsMnamescsv,traitsMnames)
+
+    traitsStrFile = open(r"I:\UKMR\RomFS\string\UIString_EN-decomp\18.bin",'rb')
+    traitsIntFile = open(r"I:\UKMR\RomFS\binary\UIStringExData-decomp\18.bin",'rb')
+    traitsnames = ReadENNames(traitsStrFile,traitsIntFile)
+    traitsnamescsv = csv.DictWriter(open("UKMR-TraitNames.csv",'w',newline='',encoding='utf-8'),["Key","Value"])
+    traitsnamescsv.writeheader()
+    WriteData(traitsnamescsv,traitsnames)
+
+    traitsDStrFile = open(r"I:\UKMR\RomFS\string\UIString_EN-decomp\19.bin",'rb')
+    traitsDIntFile = open(r"I:\UKMR\RomFS\binary\UIStringExData-decomp\19.bin",'rb')
+    traitsDnames = ReadENNames(traitsDStrFile,traitsDIntFile)
+    traitsDnamescsv = csv.DictWriter(open("UKMR-RearingTraitDescriptions.csv",'w',newline='',encoding='utf-8'),["Key","Value"])
+    traitsDnamescsv.writeheader()
+    WriteData(traitsDnamescsv,traitsDnames)
+
+    traitsBStrFile = open(r"I:\UKMR\RomFS\string\UIString_EN-decomp\21.bin",'rb')
+    traitsBIntFile = open(r"I:\UKMR\RomFS\binary\UIStringExData-decomp\21.bin",'rb')
+    traitsBnames = ReadENNames(traitsBStrFile,traitsBIntFile)
+    traitsBnamescsv = csv.DictWriter(open("UKMR-BattleTraitDescriptions.csv",'w',newline='',encoding='utf-8'),["Key","Value"])
+    traitsBnamescsv.writeheader()
+    WriteData(traitsBnamescsv,traitsBnames)
+
+    pgFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\6.bin",'rb')
+    pg = ReadGenericData(pgFile,PersonalityGroupNames,True)
+    pgcsv = csv.DictWriter(open("UKMR-PersonalityGroupData.csv",'w',newline=''),PersonalityGroupNames)
+    pgcsv.writeheader()
+    WriteData(pgcsv,pg)
+
+    pgFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\6.bin",'rb')
+    pg = ReadGenericData(pgFile,PersonalityGroupNames,True)
+    pgcsv = csv.DictWriter(open("UKMR-PersonalityGroupData.csv",'w',newline=''),PersonalityGroupNames)
+    pgcsv.writeheader()
+    WriteData(pgcsv,pg)
+
+    pgFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\6.bin",'rb')
+    pg = ReadGenericData(pgFile,PersonalityGroupNames,True)
+    pgcsv = csv.DictWriter(open("UKMR-PersonalityGroupData.csv",'w',newline=''),PersonalityGroupNames)
+    pgcsv.writeheader()
+    WriteData(pgcsv,pg)
+
+    drillStrFile = open(r"I:\UKMR\RomFS\string\UIString_EN-decomp\50.bin",'rb')
+    drillIntFile = open(r"I:\UKMR\RomFS\binary\UIStringExData-decomp\50.bin",'rb')
+    drillnames = ReadENNames(drillStrFile,drillIntFile)
+    drillnamescsv = csv.DictWriter(open("UKMR-DrillNames.csv",'w',newline=''),["Key","Value"])
+    drillnamescsv.writeheader()
+    WriteData(drillnamescsv,drillnames)
+
+    drillFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\46.bin",'rb')
+    drill = ReadGenericData(drillFile,DrillsName,False)
+    drillcsv = csv.DictWriter(open("UKMR-DrillData.csv",'w',newline=''),DrillsName)
+    drillcsv.writeheader()
+    WriteData(drillcsv,drill)
+
+    unknVariantFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\65.bin",'rb')
+    unknVariant = ReadGenericData(unknVariantFile,UnknVariantName,False)
+    unknVariantcsv = csv.DictWriter(open("UKMR-UnknVariantData.csv",'w',newline=''),UnknVariantName)
+    unknVariantcsv.writeheader()
+    WriteData(unknVariantcsv,unknVariant)
+
+    unknVariant2File = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\66.bin",'rb')
+    unknVariant2 = ReadGenericData(unknVariant2File,UnknVariantName,False)
+    unknVariant2csv = csv.DictWriter(open("UKMR-UnknVariant2Data.csv",'w',newline=''),UnknVariantName)
+    unknVariant2csv.writeheader()
+    WriteData(unknVariant2csv,unknVariant2)
+
+    fusionItemFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\36.bin",'rb')
     fusionItem = ReadGenericData(fusionItemFile,FusionItemName,False)
     fusionItemcsv = csv.DictWriter(open("UKMR-FusionItemData.csv",'w',newline=''),FusionItemName)
     fusionItemcsv.writeheader()
     WriteData(fusionItemcsv,fusionItem)
 
-    mbStrFile = open(r"D:\UKMR\RomFS\string\UIString_EN-decomp\14.bin",'rb')
-    mbIntFile = open(r"D:\UKMR\RomFS\binary\UIStringExData-decomp\14.bin",'rb')
+    mbStrFile = open(r"I:\UKMR\RomFS\string\UIString_EN-decomp\14.bin",'rb')
+    mbIntFile = open(r"I:\UKMR\RomFS\binary\UIStringExData-decomp\14.bin",'rb')
     mbnames = ReadENNames(mbStrFile,mbIntFile)
     mbnamescsv = csv.DictWriter(open("UKMR-MainBreedNames.csv",'w',newline=''),["Key","Value"])
     mbnamescsv.writeheader()
     WriteData(mbnamescsv,mbnames)
 
-    mbFile = open(r"D:\UKMR\RomFS\binary\ConstData_US-decomp\4.bin",'rb')
+    mbFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\4.bin",'rb')
     mainbreed = ReadGenericData(mbFile,MainBreedName,False)
     mainbreedcsv = csv.DictWriter(open("UKMR-MainBreedData.csv",'w',newline=''),MainBreedName)
     mainbreedcsv.writeheader()
     WriteData(mainbreedcsv,mainbreed)
 
-    trainerStrFile = open(r"D:\UKMR\RomFS\string\UIString_EN-decomp\51.bin",'rb')
-    trainerIntFile = open(r"D:\UKMR\RomFS\binary\UIStringExData-decomp\51.bin",'rb')
+    trainerStrFile = open(r"I:\UKMR\RomFS\string\UIString_EN-decomp\51.bin",'rb')
+    trainerIntFile = open(r"I:\UKMR\RomFS\binary\UIStringExData-decomp\51.bin",'rb')
     trainernames = ReadENNames(trainerStrFile,trainerIntFile)
     trainernamescsv = csv.DictWriter(open("UKMR-TrainerNames.csv",'w',newline=''),["Key","Value"])
     trainernamescsv.writeheader()
     WriteData(trainernamescsv,trainernames)
 
-    trainerFile = open(r"D:\UKMR\RomFS\binary\ConstData_US-decomp\50.bin",'rb')
+    trainerFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\50.bin",'rb')
     trainer = ReadGenericData(trainerFile,TrainerName,False)
     trainercsv = csv.DictWriter(open("UKMR-TrainerData.csv",'w',newline=''),TrainerName)
     trainercsv.writeheader()
     WriteData(trainercsv,trainer)
 
-    persStrFile = open(r"D:\UKMR\RomFS\string\UIString_EN-decomp\17.bin",'rb')
-    persIntFile = open(r"D:\UKMR\RomFS\binary\UIStringExData-decomp\17.bin",'rb')
+    persStrFile = open(r"I:\UKMR\RomFS\string\UIString_EN-decomp\17.bin",'rb')
+    persIntFile = open(r"I:\UKMR\RomFS\binary\UIStringExData-decomp\17.bin",'rb')
     persnames = ReadENNames(persStrFile,persIntFile)
     persnamescsv = csv.DictWriter(open("UKMR-PersonalityNames.csv",'w',newline=''),["Key","Value"])
     persnamescsv.writeheader()
     WriteData(persnamescsv,persnames)
 
-    persJPStrFile = open(r"D:\UKMR\RomFS\string\UIString_Jp\17.bin",'rb')
-    persJPIntFile = open(r"D:\UKMR\RomFS\binary\UIStringExData-decomp\17.bin",'rb')
+    persJPStrFile = open(r"I:\UKMR\RomFS\string\UIString_Jp\17.bin",'rb')
+    persJPIntFile = open(r"I:\UKMR\RomFS\binary\UIStringExData-decomp\17.bin",'rb')
     persJPnames = ReadJPNames(persJPStrFile,persJPIntFile)
     persJPnamescsv = csv.DictWriter(open("UKMR-PersonalityJPNames.csv",'w',encoding="utf-8",newline=''),["Key","Value"])
     persJPnamescsv.writeheader()
     WriteData(persJPnamescsv,persJPnames)
 
-    personalityFile = open(r"D:\UKMR\RomFS\binary\ConstData_US-decomp\8.bin",'rb')
+    personalityFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\8.bin",'rb')
     personality = ReadGenericData(personalityFile,PersonalityName,False)
     personalitycsv = csv.DictWriter(open("UKMR-PersonalityData.csv",'w',newline=''),PersonalityName)
     personalitycsv.writeheader()
     WriteData(personalitycsv,personality)
 
-    monthlyItemFile = open(r"D:\UKMR\RomFS\binary\ConstData_US-decomp\35.bin",'rb')
+    monthlyItemFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\35.bin",'rb')
     monthlyItem = ReadGenericData(monthlyItemFile,MonthlyName,False)
     monthlyItemcsv = csv.DictWriter(open("UKMR-MonthlyItemData.csv",'w',newline=''),MonthlyName)
     monthlyItemcsv.writeheader()
     WriteData(monthlyItemcsv,monthlyItem)
 
-    baseFoodFile = open(r"D:\UKMR\RomFS\binary\ConstData_US-decomp\37.bin",'rb')
+    baseFoodFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\37.bin",'rb')
     baseFoods = ReadGenericData(baseFoodFile,BaseFoodName,False)
     baseFoodcsv = csv.DictWriter(open("UKMR-BaseFoodData.csv",'w',newline=''),BaseFoodName)
     baseFoodcsv.writeheader()
     WriteData(baseFoodcsv,baseFoods)
 
-    spiceFile = open(r"D:\UKMR\RomFS\binary\ConstData_US-decomp\38.bin",'rb')
+    spiceFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\38.bin",'rb')
     spices = ReadGenericData(spiceFile,SpiceName,False)
     spicecsv = csv.DictWriter(open("UKMR-SpiceData.csv",'w',newline=''),SpiceName)
     spicecsv.writeheader()
     WriteData(spicecsv,spices)
 
-    mealStrFile = open(r"D:\UKMR\RomFS\string\UIString_EN-decomp\47.bin",'rb')
-    mealIntFile = open(r"D:\UKMR\RomFS\binary\UIStringExData-decomp\47.bin",'rb')
+    mealStrFile = open(r"I:\UKMR\RomFS\string\UIString_EN-decomp\47.bin",'rb')
+    mealIntFile = open(r"I:\UKMR\RomFS\binary\UIStringExData-decomp\47.bin",'rb')
     mealnames = ReadENNames(mealStrFile,mealIntFile)
     mealnamescsv = csv.DictWriter(open("UKMR-MealNames.csv",'w',newline=''),["Key","Value"])
     mealnamescsv.writeheader()
     WriteData(mealnamescsv,mealnames)
 
-    mealAttrStrFile = open(r"D:\UKMR\RomFS\string\UIString_EN-decomp\48.bin",'rb')
-    mealAttrIntFile = open(r"D:\UKMR\RomFS\binary\UIStringExData-decomp\48.bin",'rb')
+    mealAttrStrFile = open(r"I:\UKMR\RomFS\string\UIString_EN-decomp\48.bin",'rb')
+    mealAttrIntFile = open(r"I:\UKMR\RomFS\binary\UIStringExData-decomp\48.bin",'rb')
     mealAttrnames = ReadENNames(mealAttrStrFile,mealAttrIntFile)
     mealAttrnamescsv = csv.DictWriter(open("UKMR-MealAttrNames.csv",'w',newline=''),["Key","Value"])
     mealAttrnamescsv.writeheader()
     WriteData(mealAttrnamescsv,mealAttrnames)
 
-    mealFile = open(r"D:\UKMR\RomFS\binary\ConstData_US-decomp\39.bin",'rb')
+    mealFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\39.bin",'rb')
     meals = ReadGenericData(mealFile,MealName)
     mealcsv = csv.DictWriter(open("UKMR-MealData.csv",'w',newline=''),MealName)
     mealcsv.writeheader()
     WriteData(mealcsv,meals)
 
-    effectRemap = open(r"D:\UKMR\RomFS\binary\ConstData_US-decomp\43.bin",'rb')
+    effectRemap = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\43.bin",'rb')
     itemremap = ReadItemRemapData(effectRemap)
-    itemFile = open(r"D:\UKMR\RomFS\binary\ConstData_US-decomp\29.bin",'rb')
+    itemFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\29.bin",'rb')
     items = ReadItemData(itemFile,itemremap)
     itemscsv = csv.DictWriter(open("UKMR-ItemData.csv",'w',newline=''),ItemName)
     itemscsv.writeheader()
     WriteData(itemscsv,items)
 
-    consumableFile = open(r"D:\UKMR\RomFS\binary\ConstData_US-decomp\34.bin",'rb')
+    consumableFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\34.bin",'rb')
     consumables = ReadGenericData(consumableFile,ConsumableName)
     consumablecsv = csv.DictWriter(open("UKMR-ConsumableData.csv",'w',newline=''),ConsumableName)
     consumablecsv.writeheader()
     WriteData(consumablecsv,consumables)
 
-    itemNameStrFile = open(r"D:\UKMR\RomFS\string\UIString_EN-decomp\42.bin",'rb')
-    itemNameIntFile = open(r"D:\UKMR\RomFS\binary\UIStringExData-decomp\42.bin",'rb')
+    itemNameStrFile = open(r"I:\UKMR\RomFS\string\UIString_EN-decomp\42.bin",'rb')
+    itemNameIntFile = open(r"I:\UKMR\RomFS\binary\UIStringExData-decomp\42.bin",'rb')
     itemnames = ReadENNames(itemNameStrFile,itemNameIntFile)
     itemnamescsv = csv.DictWriter(open("UKMR-ItemNames.csv",'w',newline=''),["Key","Value"])
     itemnamescsv.writeheader()
     WriteData(itemnamescsv,itemnames)
 
-    techNameStrFile = open(r"D:\UKMR\RomFS\string\UIString_EN-decomp\23.bin",'rb')
-    techNameIntFile = open(r"D:\UKMR\RomFS\binary\UIStringExData-decomp\23.bin",'rb')
+    techNameStrFile = open(r"I:\UKMR\RomFS\string\UIString_EN-decomp\23.bin",'rb')
+    techNameIntFile = open(r"I:\UKMR\RomFS\binary\UIStringExData-decomp\23.bin",'rb')
     technames = ReadENNames(techNameStrFile,techNameIntFile)
     technamescsv = csv.DictWriter(open("UKMR-TechNames.csv",'w',newline=''),["Key","Value"])
     technamescsv.writeheader()
     WriteData(technamescsv,technames)
 
-    techJPStrFile = open(r"D:\UKMR\RomFS\string\UIString_Jp\23.bin",'rb')
-    techJPIntFile = open(r"D:\UKMR\RomFS\binary\UIStringExData-decomp\23.bin",'rb')
+    techJPStrFile = open(r"I:\UKMR\RomFS\string\UIString_Jp\23.bin",'rb')
+    techJPIntFile = open(r"I:\UKMR\RomFS\binary\UIStringExData-decomp\23.bin",'rb')
     techJPnames = ReadJPNames(techJPStrFile,techJPIntFile)
     techJPnamescsv = csv.DictWriter(open("UKMR-TechJPNames.csv",'w',encoding="utf-8",newline=''),["Key","Value"])
     techJPnamescsv.writeheader()
     WriteData(techJPnamescsv,techJPnames)
 
-    techFile = open(r"D:\UKMR\RomFS\binary\ConstData_US-decomp\12.bin",'rb')
+    techFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\12.bin",'rb')
     techs = ReadGenericData(techFile,TechName)
     techscsv = csv.DictWriter(open("UKMR-TechData.csv",'w',newline=''),TechName)
     techscsv.writeheader()
     WriteData(techscsv,techs)
 
-    techLearnFile = open(r"D:\UKMR\RomFS\binary\ConstData_US-decomp\13.bin",'rb')
+    techLearnFile = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\13.bin",'rb')
     techlearn = ReadGenericData(techLearnFile,TechLearningName)
     techlearncsv = csv.DictWriter(open("UKMR-TechLearningData.csv",'w',newline=''),TechLearningName)
     techlearncsv.writeheader()
     WriteData(techlearncsv,techlearn)
 
-    monsterNameStrFile = open(r"D:\UKMR\RomFS\string\UIString_EN-decomp\15.bin",'rb')
-    monsterNameIntFile = open(r"D:\UKMR\RomFS\binary\UIStringExData-decomp\15.bin",'rb')
+    monsterNameStrFile = open(r"I:\UKMR\RomFS\string\UIString_EN-decomp\15.bin",'rb')
+    monsterNameIntFile = open(r"I:\UKMR\RomFS\binary\UIStringExData-decomp\15.bin",'rb')
     monsternames = ReadENNames(monsterNameStrFile,monsterNameIntFile)
     monsternamescsv = csv.DictWriter(open("UKMR-MonsterNames.csv",'w',newline=''),["Key","Value"])
     monsternamescsv.writeheader()
     WriteData(monsternamescsv,monsternames)
 
-    monsterJPNameStrFile = open(r"D:\UKMR\RomFS\string\UIString_Jp\15.bin",'rb')
-    monsterJPNameIntFile = open(r"D:\UKMR\RomFS\binary\UIStringExData-decomp\15.bin",'rb')
+    monsterJPNameStrFile = open(r"I:\UKMR\RomFS\string\UIString_Jp\15.bin",'rb')
+    monsterJPNameIntFile = open(r"I:\UKMR\RomFS\binary\UIStringExData-decomp\15.bin",'rb')
     monsterJPnames = ReadJPNames(monsterJPNameStrFile,monsterJPNameIntFile)
     monsterJPnamescsv = csv.DictWriter(open("UKMR-MonsterJPNames.csv",'w',encoding="utf-8",newline=''),["Key","Value"])
     monsterJPnamescsv.writeheader()
     WriteData(monsterJPnamescsv,monsterJPnames)
 
-    breedData = open(r"D:\UKMR\RomFS\binary\ConstData_US-decomp\3.bin",'rb')
+    breedData = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\3.bin",'rb')
     mainsub = ReadGenericData(breedData,MainSubName)
     mainsubcsv = csv.DictWriter(open("UKMR-MainSub.csv",'w',newline=''),MainSubName)
     mainsubcsv.writeheader()
     WriteData(mainsubcsv,mainsub)
 
-    data = open(r"D:\UKMR\RomFS\binary\ConstData_US-decomp\2.bin",'rb')
+    data = open(r"I:\UKMR\RomFS\binary\ConstData_US-decomp\2.bin",'rb')
     monsters = ReadGenericData(data,DataName,False)
     csvFile = csv.DictWriter(open("UKMR-Monsters.csv",'w',newline=''),DataName)
     csvFile.writeheader()
