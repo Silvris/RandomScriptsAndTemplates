@@ -1,0 +1,35 @@
+//------------------------------------------------
+//--- 010 Editor v12.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+typedef struct{
+    byte magic[8];
+    uint num1;
+    uint remainingSize;
+    uint off1;
+    uint off2;
+    uint num2;
+    uint unkn[9];
+}Header;
+
+typedef struct{
+    uint offset;
+    uint unkn[4];
+}FileInfo;
+
+typedef struct{
+    string str;
+}String;
+
+Header header;
+FSeek(header.off1 + 64);
+FileInfo fileInfos[header.num1];
+String fileNames[header.num1]<optimize=false>;

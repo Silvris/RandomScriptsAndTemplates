@@ -10,6 +10,9 @@
 //  ID Bytes: 
 //   History: 
 //------------------------------------------------
+local int min = 9000;
+local int max = -1;
+local int i;
 typedef struct{
     byte unkn; //I think this is a datatype, since it's only ever 1 on floats
     int data;
@@ -61,8 +64,13 @@ typedef struct{
     Int5 Unkn35<read=ReadInt5>;
     Int5 Unkn36<read=ReadInt5>;
     Int5 Unkn37<read=ReadInt5>;
+    if(Unkn17.data < min && Unkn17.data != -1) min = Unkn17.data;
+    if(Unkn17.data > max) max = Unkn17.data;
+    if(Unkn17.data == 0) Printf("%i\n", FTell());
 }DataStruct;
 
 int dataNum;
 
 DataStruct data[dataNum]<optimize=false>;
+
+Printf("Min:%i Max:%i",min,max);

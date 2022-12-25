@@ -1,0 +1,82 @@
+//------------------------------------------------
+//--- 010 Editor v13.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+local int min = 9000;
+local int max = -1;
+local int i;
+typedef struct{
+    byte unkn; //I think this is a datatype, since it's only ever 1 on floats
+    int data;
+}Int5<read=ReadInt5>;
+
+string ReadInt5(Int5 &i){
+    string s;
+    SPrintf(s, "%i", i.data);
+    return s;
+}
+
+typedef struct{
+    byte unkn; //I think this is a datatype, since it's only ever 1 on floats
+    float data;
+}Float5<read=ReadFloat5>;
+
+string ReadFloat5(Float5 &i){
+    string s;
+    SPrintf(s, "%f", i.data);
+    return s;
+}
+
+
+typedef struct(int j){
+    Int5 Name;//UIString 56
+    Int5 HollysMessage;
+    Int5 MainSub;
+    Int5 Age; //Confirm????
+    Int5 Life;
+    Int5 Power;
+    Int5 Intelligence;
+    Int5 Skill;
+    Int5 Speed;
+    Int5 Defense;
+    Float5 ForwardMoveSpeed;
+    Float5 Backwards;
+    Int5 GutsRecovery;
+    Int5 Dependence;// 0 to 100 definitely monster parameter
+    Int5 Fear;// 0 to 100
+    Int5 Fame;// 0 to 99
+    Int5 Trait1;
+    Int5 Trait2;
+    Int5 Trait3;
+    Int5 Trait4;
+    Int5 Tech1;
+    Int5 Tech2;
+    Int5 Tech3;
+    Int5 Tech4;
+    Int5 Tech5;
+    Int5 Tech6;
+    Int5 Tech7;
+    Int5 Tech8;
+    Int5 Tech9;
+    Int5 Anger;
+    Int5 Personality;
+    Int5 Personality2;
+    if(Anger.data < min && Anger.data != -1) min = Anger.data;
+    if(Anger.data > max) max = Anger.data;
+    if(Personality.data != Personality2.data) Printf("%i\n", j);
+}DataStruct;
+
+int dataNum;
+for(i = 0; i < dataNum; i++){
+    DataStruct data(i)<optimize=false>;
+};
+
+Printf("Min:%i Max:%i",min,max);

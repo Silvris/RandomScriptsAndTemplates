@@ -1,0 +1,53 @@
+//------------------------------------------------
+//--- 010 Editor v12.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+
+typedef struct{
+    byte value;
+}Resistance<read=ReadResistance>;
+
+string ReadResistance(Resistance &r){
+    string s;
+    SPrintf(s, "%i", r.value + 130);
+    return s;
+};
+
+typedef struct{
+    ushort HP; //I think? this should probably be a signed int given the time, but it'll only matter on specific enemies that reach max short
+    ubyte Level;
+    byte Unkns[5];
+    ubyte Stamina;
+    ubyte Speed;
+    ubyte Magic;
+    ubyte Hit;
+    ubyte Evade;
+    ubyte MagicDefense;
+    ubyte Offense;
+    ubyte Defense;
+    Resistance LightRes;
+    Resistance ShadowRes;
+    Resistance WaterRes;
+    Resistance FireRes;
+    ubyte Unkn2;
+    byte HPInvisible : 1;
+    byte BossDeath : 1;
+    byte IsUndead : 1;
+    byte IsMachine : 1;
+    byte IsUnkn : 1;
+    byte IsAqua : 1;
+    byte IsMagic : 1;
+    byte IsTyranno : 1;
+    byte Unkn4;
+}Monster;
+
+uint monsterCount;
+Monster monsters[monsterCount];

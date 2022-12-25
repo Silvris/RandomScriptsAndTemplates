@@ -1,0 +1,28 @@
+//------------------------------------------------
+//--- 010 Editor v12.0.1 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+typedef struct{
+    uint three;
+    ushort width;
+    ushort height;
+    uint unkn1;
+    uint unkn2;
+    uint unkn3;
+    uint unkn4;
+    uint unkn5;
+    uint blobTotal;
+    uint stripSize;
+    uint unkn8;
+    uint unkns[8];
+}Header;
+
+Header header;
