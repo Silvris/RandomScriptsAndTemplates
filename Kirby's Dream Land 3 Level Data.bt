@@ -1,0 +1,37 @@
+//------------------------------------------------
+//--- 010 Editor v13.0 Binary Template
+//
+//      File: 
+//   Authors: 
+//   Version: 
+//   Purpose: 
+//  Category: 
+// File Mask: 
+//  ID Bytes: 
+//   History: 
+//------------------------------------------------
+typedef struct{
+    ushort unkn;
+    ushort BGM;
+    ushort unkn2;
+    ushort unkn3;
+    ushort unkn4;
+    ushort unkn5;
+    ushort unkn6;
+    ushort unkn7;
+    ushort unkn8;
+    ushort unkn9;
+    ushort unkn10;
+    ushort unkn11;
+    ushort unkn12;
+    ushort unkn13;
+    ushort unkn14;
+    ushort unkn15;
+    ushort unkn16;
+    ushort unkn17;
+    ushort unkn18;
+    ushort unkn19;
+    ushort unkn20;
+}Level;
+
+Level level;

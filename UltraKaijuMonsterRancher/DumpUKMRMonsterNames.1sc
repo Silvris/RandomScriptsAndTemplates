@@ -20,7 +20,7 @@ void DumpUKMRMonsterNames(){
     FileNew("Text",true);
     NewFileNum = GetFileNum();
     FileSelect(FileNum);
-    FPrintf(NewFileNum, "Index,Name\n");
+    FPrintf(NewFileNum, "Index,String\n");
     for(Index=0;Index<nameNum;Index++){
         if(nameIndices[Index] != -1){
             i = nameIndices[Index];
@@ -28,7 +28,7 @@ void DumpUKMRMonsterNames(){
         };
     };
     FileSelect(NewFileNum);
-    FileSave("UKMR-MonsterNames.csv");
+    FileSave("UKMR-StringData61.csv");
 };
 
 DumpUKMRMonsterNames();

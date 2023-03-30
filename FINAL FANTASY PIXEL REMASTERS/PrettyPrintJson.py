@@ -40,7 +40,7 @@ def prettyPrintJson(fileName):
             jf = open(path,'r',encoding='utf-8')
             jdata = json.load(jf)
             jf.close()
-            jdata = checkLowerJson(jdata)
+            #jdata = checkLowerJson(jdata)
             jf = open(path,'w',encoding='utf-8')
             json.dump(jdata,jf,indent=4,ensure_ascii=False)
             jf.close()
@@ -48,9 +48,9 @@ def prettyPrintJson(fileName):
         jf = open(fileName,'r',encoding='utf-8')
         jdata = json.load(jf)
         jf.close()
-        jdata = checkLowerJson(jdata)
+        #jdata = checkLowerJson(jdata)
         jf = open(fileName,'w',encoding='utf-8')
-        json.dump(jdata,jf,indent=4,ensure_ascii=False)
+        json.dump(jdata,jf,ensure_ascii=False)
         jf.close()
 
 if __name__ == "__main__":
