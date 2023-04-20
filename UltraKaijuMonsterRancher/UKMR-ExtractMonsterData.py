@@ -20,6 +20,7 @@ def readFloat(file):
 
 DataName = {
     "Index":True,
+    "Monster":True,
     "Variation":True,
     "BaseLif":True,
     "BasePow":True,
@@ -901,7 +902,7 @@ def MainFunction():
     WriteData(mainsubcsv,mainsub)
 
     data = open(r"D:\UKMR\RomFS\binary\ConstData_US-decomp\2.bin",'rb')
-    monsters = ReadGenericData(data,DataName,False)
+    monsters = ReadGenericData(data,DataName)
     csvFile = csv.DictWriter(open("UKMR-Monsters.csv",'w',newline=''),DataName)
     csvFile.writeheader()
     WriteData(csvFile,monsters)

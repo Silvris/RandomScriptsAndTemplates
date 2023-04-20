@@ -10,6 +10,12 @@
 //  ID Bytes: 
 //   History: 
 //------------------------------------------------
+//known ordering of structure
+//-metadata
+//-entities
+//-tiledata
+//replacing a bad value could destroy tiles
+//water is in here somewhere too (likely also tile types and wind)
 typedef struct{
     ushort unkn;
     ushort BGM;
@@ -32,6 +38,31 @@ typedef struct{
     ushort unkn18;
     ushort unkn19;
     ushort unkn20;
+    ushort unkn21;
+    ushort unkn22;
+    ushort unkn23;
+    ushort unkn24;
+    ushort unkn25;
+    ushort unkn26;
+    ushort unkn27;
+    ushort unkn28;
+    ushort unkn29;
+    ushort unkn30;
+    ushort unkn31;
+    ushort unkn32;
+    ushort unkn33;
+    ushort unkn34;
+    ushort unkn35;
+    ushort unkn36;
+    ushort unkn37;
+    ushort unkn38;
+    ushort unkn39;
+    ushort unkn40;
+    ushort unkn41;
+    ushort unkn42;
+    ushort unkn43;
+    ushort unknArray[40];
+//past here seems to be 0xFFFF delimited?
 }Level;
 
 Level level;
