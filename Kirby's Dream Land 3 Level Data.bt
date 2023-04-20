@@ -17,6 +17,21 @@
 //replacing a bad value could destroy tiles
 //water is in here somewhere too (likely also tile types and wind)
 typedef struct{
+    ushort x;
+    ushort y;
+    ushort type;
+    ubyte  idx;
+    ubyte  value;
+}Entity;
+
+typedef struct{
+    ushort EntityCount;
+    ushort EntitySize;
+    Entity Entities[EntityCount];
+    short  EntityGuard;
+}Entities;
+
+typedef struct{
     ushort unkn;
     ushort BGM;
     ushort unkn2;
@@ -63,6 +78,15 @@ typedef struct{
     ushort unkn43;
     ushort unknArray[40];
 //past here seems to be 0xFFFF delimited?
+    while (ReadShort() != -1){
+        ushort unkns;
+    };
+    short g1;
+    while (ReadShort() != -1){
+        ushort unkns;
+    };
+    short g2;
+    Entities entities;
 }Level;
 
 Level level;
